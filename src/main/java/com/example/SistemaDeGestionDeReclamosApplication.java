@@ -1,10 +1,12 @@
-package com.example.demo;
+package com.example;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.util.List;
+import java.util.Optional;
+
 import com.example.modelo.repository.PersonaRepository;
 import com.example.modelo.Persona;
 
@@ -23,11 +25,16 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		
+		Optional<Persona> lista = persona.findByNombre("");
+		
+		
 
-		List<Persona> lista = persona.findAll();
-		for (Persona persona : lista) {
-			System.out.println(persona.getDocumento());
+		if(lista.isPresent()){
+			System.out.println("Nombre "+lista.get().getNombre());
+			System.out.println(lista.get().getDocumento());
+			System.out.println(lista.get().getMail());
 		}
+			
 
 	}
 
