@@ -1,11 +1,11 @@
-package modelo;
+package com.example.modelo;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import exceptions.UnidadException;
-import views.EdificioView;
-import views.UnidadView;
+import com.example.exceptions.UnidadException;
+import com.example.views.EdificioView;
+import com.example.views.UnidadView;
 
 public class Unidad {
 

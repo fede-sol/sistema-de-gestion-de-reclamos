@@ -1,22 +1,24 @@
-package controlador;
+package com.example.controlador;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import exceptions.EdificioException;
-import exceptions.PersonaException;
-import exceptions.ReclamoException;
-import exceptions.UnidadException;
-import modelo.Edificio;
-import modelo.Persona;
-import modelo.Reclamo;
-import modelo.Unidad;
-import views.EdificioView;
-import views.Estado;
-import views.PersonaView;
-import views.ReclamoView;
-import views.UnidadView;
+import com.example.exceptions.EdificioException;
+import com.example.exceptions.PersonaException;
+import com.example.exceptions.ReclamoException;
+import com.example.exceptions.UnidadException;
+import com.example.modelo.Edificio;
+import com.example.modelo.Persona;
+import com.example.modelo.Reclamo;
+import com.example.modelo.Unidad;
+import com.example.views.EdificioView;
+import com.example.views.Estado;
+import com.example.views.PersonaView;
+import com.example.views.ReclamoView;
+import com.example.views.UnidadView;
+
+
 
 public class Controlador {
 

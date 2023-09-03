@@ -1,12 +1,15 @@
-package modelo;
+package com.example.views;
 
-public class Imagen {
-
+public class ImagenView {
+	
 	private int numero;
 	private String direccion;
 	private String tipo;
 	
-	public Imagen(String direccion, String tipo) {
+	public ImagenView() {}
+
+	public ImagenView(int numero, String direccion, String tipo) {
+		this.numero = numero;
 		this.direccion = direccion;
 		this.tipo = tipo;
 	}

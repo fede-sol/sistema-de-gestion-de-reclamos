@@ -1,11 +1,11 @@
-package modelo;
+package com.example.modelo;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import views.EdificioView;
+import com.example.views.EdificioView;
 
 public class Edificio {
 	

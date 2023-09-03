@@ -1,4 +1,4 @@
-package views;
+package com.example.views;
 
 public class EdificioView {
 

@@ -1,4 +1,4 @@
-package exceptions;
+package com.example.exceptions;
 
 public class UnidadException extends Exception {
 

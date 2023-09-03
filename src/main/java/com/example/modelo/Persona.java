@@ -1,12 +1,20 @@
-package modelo;
+package com.example.modelo;
 
-import views.PersonaView;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Table;
+import com.example.views.PersonaView;
 
+@Entity
+@Table(name="personas")
 public class Persona {
 
+	@Id
 	private String documento;
 	private String nombre;
 	private String mail;
+	@JoinColumn(name="contrasenia")
 	private String password;
 	
 	public Persona(String documento, String nombre, String mail, String password) {

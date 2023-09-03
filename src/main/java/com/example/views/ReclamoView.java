@@ -1,11 +1,11 @@
-package views;
+package com.example.views;
 
 import java.util.List;
 
-import modelo.Edificio;
-import modelo.Imagen;
-import modelo.Persona;
-import modelo.Unidad;
+import com.example.modelo.Edificio;
+import com.example.modelo.Imagen;
+import com.example.modelo.Persona;
+import com.example.modelo.Unidad;
 
 public class ReclamoView {
 
