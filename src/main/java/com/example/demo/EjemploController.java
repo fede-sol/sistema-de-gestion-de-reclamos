@@ -12,7 +12,7 @@ import java.util.Map;
 public class EjemploController {
     private final JdbcTemplate jdbcTemplate;
 
-    @Autowired
+    @Autowired 
     public EjemploController(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
