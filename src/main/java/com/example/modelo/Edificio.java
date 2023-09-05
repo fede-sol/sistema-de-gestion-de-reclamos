@@ -1,30 +1,46 @@
 package com.example.modelo;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import com.example.views.EdificioView;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name="edificios")
 public class Edificio {
-	
+
+	@Id
 	private int codigo;
 	private String nombre;
 	private String direccion;
+	@OneToMany(fetch = FetchType.EAGER)
+	@JoinColumn(name="identificador")
 	private List<Unidad> unidades;
-	
+
+
+	public Edificio(){
+
+	}
+
 	public Edificio(int codigo, String nombre, String direccion) {
 		this.codigo = codigo;
 		this.nombre = nombre;
 		this.direccion = direccion;
-		unidades = new ArrayList<Unidad>();
+		//unidades = new ArrayList<Unidad>();
 	}
-	
+
 	public void agregarUnidad(Unidad unidad) {
 		unidades.add(unidad);
 	}
-	
+
 	public Set<Persona> habilitados(){
 		Set<Persona> habilitados = new HashSet<Persona>();
 		for(Unidad unidad : unidades) {
@@ -69,7 +85,7 @@ public class Edificio {
 		for(Unidad unidad : unidades) {
 			if(unidad.estaHabitado()) {
 				List<Persona> inquilinos = unidad.getInquilinos();
-				if(inquilinos.size() > 0) 
+				if(inquilinos.size() > 0)
 					for(Persona p : inquilinos)
 						resultado.add(p);
 				else {
@@ -82,7 +98,10 @@ public class Edificio {
 		return resultado;
 	}
 
+
 	public EdificioView toView() {
 		return new EdificioView(codigo, nombre, direccion);
 	}
+
+
 }

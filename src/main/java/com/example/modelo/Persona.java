@@ -3,7 +3,10 @@ package com.example.modelo;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+
 import jakarta.persistence.Table;
+
+
 import com.example.views.PersonaView;
 
 @Entity
@@ -17,7 +20,7 @@ public class Persona {
 	private String mail;
 	@Column(name="contrasenia")
 	private String password;
-	
+
 
 	public Persona(){
 

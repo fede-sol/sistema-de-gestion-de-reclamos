@@ -1,5 +1,6 @@
 package com.example.modelo;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,16 +8,49 @@ import com.example.exceptions.UnidadException;
 import com.example.views.EdificioView;
 import com.example.views.UnidadView;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name="unidades")
 public class Unidad {
 
+	@Id
+	@Column(name="identificador",insertable = false, updatable = false)
 	private int id;
 	private String piso;
 	private String numero;
 	private boolean habitado;
+	@ManyToOne
+	@JoinColumn(name="codigoedificio")
 	private Edificio edificio;
-	private List<Persona> duenios;
-	private List<Persona> inquilinos;
-	
+	@ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "duenios",
+		joinColumns = @JoinColumn( name="identificador"),
+        inverseJoinColumns = @JoinColumn(name = "documento")
+    )
+    private List<Persona> duenios;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "inquilinos",
+		joinColumns = @JoinColumn( name="identificador"),
+        inverseJoinColumns = @JoinColumn(name = "documento")
+    )
+    private List<Persona> inquilinos;
+
+	public Unidad(){
+
+	}
+
 	public Unidad(int id, String piso, String numero, Edificio edificio) {
 		this.id = id;
 		this.piso = piso;
@@ -31,11 +65,11 @@ public class Unidad {
 		duenios = new ArrayList<Persona>();
 		duenios.add(nuevoDuenio);
 	}
-	
+
 	public void agregarDuenio(Persona duenio) {
 		duenios.add(duenio);
 	}
-	
+
 	public void alquilar(Persona inquilino) throws UnidadException {
 		if(!this.habitado) {
 			this.habitado = true;
@@ -49,23 +83,23 @@ public class Unidad {
 	public void agregarInquilino(Persona inquilino) {
 		inquilinos.add(inquilino);
 	}
-	
+
 	public boolean estaHabitado() {
 		return habitado;
 	}
-	
+
 	public void liberar() {
 		this.inquilinos = new ArrayList<Persona>();
 		this.habitado = false;
 	}
-	
+
 	public void habitar() throws UnidadException {
 		if(this.habitado)
 			throw new UnidadException("La unidad ya esta habitada");
 		else
 			this.habitado = true;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -78,7 +112,7 @@ public class Unidad {
 		return numero;
 	}
 
-	
+
 	public Edificio getEdificio() {
 		return edificio;
 	}
