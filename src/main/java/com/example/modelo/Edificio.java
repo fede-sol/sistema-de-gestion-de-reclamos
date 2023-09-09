@@ -8,8 +8,9 @@ import com.example.views.EdificioView;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -17,12 +18,12 @@ import jakarta.persistence.Table;
 @Table(name="edificios")
 public class Edificio {
 
-	@Id
+	@Id	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int codigo;
 	private String nombre;
 	private String direccion;
-	@OneToMany(fetch = FetchType.EAGER)
-	@JoinColumn(name="identificador")
+	@OneToMany(mappedBy = "edificio",fetch = FetchType.EAGER)
 	private List<Unidad> unidades;
 
 
@@ -73,9 +74,7 @@ public class Edificio {
 	public Set<Persona> duenios() {
 		Set<Persona> resultado = new HashSet<Persona>();
 		for(Unidad unidad : unidades) {
-			List<Persona> duenios = unidad.getDuenios();
-			for(Persona p : duenios)
-				duenios.add(p);
+			resultado.addAll(unidad.getDuenios());
 		}
 		return resultado;
 	}

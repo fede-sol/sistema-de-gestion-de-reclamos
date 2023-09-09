@@ -27,7 +27,6 @@ import com.example.views.PersonaView;
 import com.example.views.ReclamoView;
 import com.example.views.UnidadView;
 
-import jakarta.transaction.Transactional;
 
 
 @Controller
@@ -52,7 +51,7 @@ public class Controlador {
 
 
 
-		List<Unidad> lista = unidadRepository.findAllByDueniosDocumento("CI 13230978");
+		List<Edificio> lista = edificioRepository.findAll();
 
 		
 			
@@ -104,9 +103,13 @@ public class Controlador {
 	public List<PersonaView> habitantesPorEdificio(int codigo) throws EdificioException{
 		List<PersonaView> resultado = new ArrayList<PersonaView>();
 		Edificio edificio = buscarEdificio(codigo);
-		Set<Persona> habitantes = edificio.duenios();
+		Set<Persona> habitantes = edificio.habitantes();
 		for(Persona persona : habitantes)
 			resultado.add(persona.toView());
+
+		if (resultado.isEmpty())
+			return null;
+
 		return resultado;
 	}
 
@@ -220,7 +223,7 @@ public class Controlador {
 
 	// DONE (JPA Repository)
 	private Edificio buscarEdificio(int codigo) throws EdificioException {
-		return null;
+		return edificioRepository.findById(codigo).get();
 	}
 	// DONE (JPA Repository)
 	private Unidad buscarUnidad(int codigo, String piso, String numero) throws UnidadException{
