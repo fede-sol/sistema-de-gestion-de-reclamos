@@ -72,6 +72,8 @@ public class Controlador {
 		return lista.get();
 	}
 
+	// Fede
+
 	public List<UnidadView> getUnidadesPorEdificio(int codigo) throws EdificioException{
 		List<UnidadView> resultado = new ArrayList<UnidadView>();
 		Edificio edificio = buscarEdificio(codigo);
@@ -126,6 +128,8 @@ public class Controlador {
 		return resultado;
 	}
 
+	// Igna
+
 	public void transferirUnidad(int codigo, String piso, String numero, String documento) throws UnidadException, PersonaException {
 		Unidad unidad = buscarUnidad(codigo, piso, numero);
 		Persona persona = buscarPersona(documento);
@@ -160,6 +164,8 @@ public class Controlador {
 		unidad.habitar();;
 	}
 
+	// Santi
+
 	public void agregarPersona(String documento, String nombre, String mail, String contrasenia) {
 		Persona persona = new Persona(documento, nombre, mail, contrasenia);
 		personaRepository.save(persona);
@@ -187,17 +193,19 @@ public class Controlador {
 		return resultado;
 	}
 
-	public List<ReclamoView> reclamosPorPersona(String documento) {
-		List<ReclamoView> resultado = new ArrayList<ReclamoView>();
-		return resultado;
-	}
-
 	public int agregarReclamo(int codigo, String piso, String numero, String documento, String ubicacion, String descripcion) throws EdificioException, UnidadException, PersonaException {
 		Edificio edificio = buscarEdificio(codigo);
 		Unidad unidad = buscarUnidad(codigo, piso, numero);
 		Persona persona = buscarPersona(documento);
 		Reclamo reclamo = new Reclamo(persona, edificio, ubicacion, descripcion, unidad);
 		return reclamo.getNumero();
+	}
+	
+	// Juani
+	
+	public List<ReclamoView> reclamosPorPersona(String documento) {
+		List<ReclamoView> resultado = new ArrayList<ReclamoView>();
+		return resultado;
 	}
 
 	public void agregarImagenAReclamo(int numero, String direccion, String tipo) throws ReclamoException {
