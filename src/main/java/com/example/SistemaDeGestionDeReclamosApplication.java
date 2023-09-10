@@ -110,7 +110,7 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner{
 		/*
 
 		// transferir unidad (dueno) -------------------------------------------------------
-		controlador.transferirUnidad(1, "10", "6", "CPA3449614");  CI 13230978
+		controlador.transferirUnidad(1, "10", "6", "CI 13230978");
 
 		*/
 
