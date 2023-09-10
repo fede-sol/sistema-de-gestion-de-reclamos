@@ -53,8 +53,8 @@ public class Controlador {
 
 		List<Edificio> lista = edificioRepository.findAll();
 
-		
-			
+
+
 		System.out.println();
 
 
@@ -64,14 +64,14 @@ public class Controlador {
 		return null;
 	}
 
-	public Persona getPersona(String nombre){ 
+	public Persona getPersona(String nombre){
 		Optional<Persona> lista = personaRepository.findByNombre(nombre);
 
 
 		return lista.get();
 	}
 
-	// Fede
+	// Fede -----------------------------------------------------------------------------
 
 	public List<UnidadView> getUnidadesPorEdificio(int codigo) throws EdificioException{
 		List<UnidadView> resultado = new ArrayList<UnidadView>();
@@ -131,12 +131,16 @@ public class Controlador {
 		return resultado;
 	}
 
-	// Igna
+	// Igna -----------------------------------------------------------------------------
 
 	public void transferirUnidad(int codigo, String piso, String numero, String documento) throws UnidadException, PersonaException {
 		Unidad unidad = buscarUnidad(codigo, piso, numero);
 		Persona persona = buscarPersona(documento);
 		unidad.transferir(persona);
+
+		// actualizar la unidad con el nuevo dueño
+		unidadRepository.save(unidad);
+
 	}
 
 	public void agregarDuenioUnidad(int codigo, String piso, String numero, String documento) throws UnidadException, PersonaException {
@@ -167,7 +171,7 @@ public class Controlador {
 		unidad.habitar();;
 	}
 
-	// Santi
+	// Santi ------------------------------------------------------------------------------
 
 	public void agregarPersona(String documento, String nombre, String mail, String contrasenia) {
 		Persona persona = new Persona(documento, nombre, mail, contrasenia);
@@ -203,9 +207,9 @@ public class Controlador {
 		Reclamo reclamo = new Reclamo(persona, edificio, ubicacion, descripcion, unidad);
 		return reclamo.getNumero();
 	}
-	
-	// Juani
-	
+
+	// Juani ------------------------------------------------------------------------------
+
 	public List<ReclamoView> reclamosPorPersona(String documento) {
 		List<ReclamoView> resultado = new ArrayList<ReclamoView>();
 		return resultado;
@@ -221,20 +225,37 @@ public class Controlador {
 		reclamo.cambiarEstado(estado);
 	}
 
-	// DONE (JPA Repository)
+	// DONE (JPA Repository) - Internal
 	private Edificio buscarEdificio(int codigo) throws EdificioException {
 		return edificioRepository.findById(codigo).get();
+
+		// agregar if
 	}
-	// DONE (JPA Repository)
+
+	// DONE (JPA Repository) - Internal
 	private Unidad buscarUnidad(int codigo, String piso, String numero) throws UnidadException{
-		return null;
+		Optional<Unidad> unidad = unidadRepository.findByEdificioCodigoAndPisoAndNumero(codigo, piso, numero);
+
+		if (unidad.isPresent())
+			return unidad.get();
+		else
+			throw new UnidadException("No existe la unidad");
 	}
-	// DONE (JPA Repository)
+
+	// DONE (JPA Repository) - Internal
 	private Persona buscarPersona(String documento) throws PersonaException {
-		return personaRepository.findById(documento).get();
+		Optional<Persona> persona = personaRepository.findById(documento);
+
+		if (persona.isPresent())
+			return persona.get();
+		else
+			throw new PersonaException("No existe la persona");
 	}
-	// DONE (JPA Repository)
+
+	// DONE (JPA Repository) - Internal
 	private Reclamo buscarReclamo(int numero) throws ReclamoException {
 		return reclamoRepository.findById(numero).get();
+
+		// agregar if
 	}
 }

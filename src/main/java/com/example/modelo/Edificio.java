@@ -18,7 +18,7 @@ import jakarta.persistence.Table;
 @Table(name="edificios")
 public class Edificio {
 
-	@Id	
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int codigo;
 	private String nombre;

@@ -28,9 +28,10 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 
-		
-		 /* 
-		 // Unidades por edificio
+
+		 /*
+
+		 // Unidades por edificio -------------------------------------------------------
 		 List<UnidadView> lista = controlador.getUnidadesPorEdificio(1);
 		 if (lista != null){
 			 for (UnidadView unidad : lista) {
@@ -39,10 +40,11 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner{
 			}else{
 				System.out.println("no hay unidades");
 			}
+
 		*/
-		 
-		/* 
-		 // Habilitados por edificio
+		/*
+
+		 // Habilitados por edificio -------------------------------------------------------
 		 List<PersonaView> lista = controlador.habilitadosPorEdificio(1);
 		 if (lista != null){
 			 for (PersonaView persona : lista) {
@@ -51,24 +53,24 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner{
 			}else{
 				System.out.println("no hay personas");
 			}
-		
+
 		*/
-		
-		 /*
-		 // dueños por edificio
-		 List<PersonaView> lista = controlador.dueniosPorEdificio(1);
-		 if (lista != null){
-			 for (PersonaView persona : lista) {
-				 System.out.println(persona.toString());
-				}
-			}else{
-				System.out.println("no hay dueños");
-			}
-			
-		 */
 		/*
-		
-		// Habitantes por edificio
+
+		// dueños por edificio -------------------------------------------------------
+		List<PersonaView> lista = controlador.dueniosPorEdificio(1);
+		if (lista != null){
+			for (PersonaView persona : lista) {
+				System.out.println(persona.toString());
+			}
+		}else{
+			System.out.println("no hay dueños");
+		}
+
+		*/
+		/*
+
+		// Habitantes por edificio -------------------------------------------------------
 		List<PersonaView> lista = controlador.habitantesPorEdificio(1);
 		 if (lista != null){
 			 for (PersonaView persona : lista) {
@@ -77,33 +79,44 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner{
 			}else{
 				System.out.println("no hay habitantes");
 			}
-			
-			*/
-			
-			/*
-			// dueños por unidad
-			List<PersonaView> lista = controlador.dueniosPorUnidad(1,1,1);
-			if (lista != null){
-				for (PersonaView persona : lista) {
-					System.out.println(persona.toString());
-				   }
-			   }else{
-				   System.out.println("no hay dueños");
-			   }
-			   
-			*/
-			/*
-			// inquilinos por unidad
-			List<PersonaView> lista = controlador.inquilinosPorUnidad(1,9,5);
-			if (lista != null){
-				for (PersonaView persona : lista) {
-					System.out.println(persona.toString());
-				   }
-			   }else{
-				   System.out.println("no hay dueños");
-			   }
-			   
-			*/
+
+		*/
+		/*
+
+		// dueños por unidad -------------------------------------------------------
+		List<PersonaView> lista = controlador.dueniosPorUnidad(1,1,1);
+		if (lista != null){
+			for (PersonaView persona : lista) {
+				System.out.println(persona.toString());
+				}
+			}else{
+				System.out.println("no hay dueños");
+			}
+
+		*/
+		/*
+
+		// inquilinos por unidad -------------------------------------------------------
+		List<PersonaView> lista = controlador.inquilinosPorUnidad(1,9,5);
+		if (lista != null){
+			for (PersonaView persona : lista) {
+				System.out.println(persona.toString());
+				}
+			}else{
+				System.out.println("no hay dueños");
+			}
+
+		*/
+		/*
+
+		// transferir unidad (dueno) -------------------------------------------------------
+		controlador.transferirUnidad(1, "10", "6", "CPA3449614");  CI 13230978
+
+		*/
+
+
+
+
 
 
 
