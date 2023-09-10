@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import javax.swing.text.html.Option;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -227,9 +229,12 @@ public class Controlador {
 
 	// DONE (JPA Repository) - Internal
 	private Edificio buscarEdificio(int codigo) throws EdificioException {
-		return edificioRepository.findById(codigo).get();
+		Optional<Edificio> edificio = edificioRepository.findById(codigo);
 
-		// agregar if
+		if (edificio.isPresent())
+			return edificio.get();
+		else
+			throw new EdificioException("No existe el edificio");
 	}
 
 	// DONE (JPA Repository) - Internal
@@ -254,8 +259,11 @@ public class Controlador {
 
 	// DONE (JPA Repository) - Internal
 	private Reclamo buscarReclamo(int numero) throws ReclamoException {
-		return reclamoRepository.findById(numero).get();
+		Optional<Reclamo> reclamo = reclamoRepository.findById(numero);
 
-		// agregar if
+		if (reclamo.isPresent())
+			return reclamo.get();
+		else
+			throw new ReclamoException("No existe el reclamo");
 	}
 }
