@@ -142,7 +142,6 @@ public class Controlador {
 
 		// actualizar la unidad con el nuevo dueño
 		unidadRepository.save(unidad);
-
 	}
 
 	public void agregarDuenioUnidad(int codigo, String piso, String numero, String documento) throws UnidadException, PersonaException {
@@ -158,12 +157,18 @@ public class Controlador {
 		Unidad unidad = buscarUnidad(codigo, piso, numero);
 		Persona persona = buscarPersona(documento);
 		unidad.alquilar(persona);
+
+		// actualizar la unidad con el nuevo inquilino
+		unidadRepository.save(unidad);
 	}
 
 	public void agregarInquilinoUnidad(int codigo, String piso, String numero, String documento) throws UnidadException, PersonaException{
 		Unidad unidad = buscarUnidad(codigo, piso, numero);
 		Persona persona = buscarPersona(documento);
 		unidad.agregarInquilino(persona);
+
+		// actualizar la unidad con el inquilino agregado
+		unidadRepository.save(unidad);
 	}
 
 	public void liberarUnidad(int codigo, String piso, String numero) throws UnidadException {
@@ -176,7 +181,10 @@ public class Controlador {
 
 	public void habitarUnidad(int codigo, String piso, String numero) throws UnidadException {
 		Unidad unidad = buscarUnidad(codigo, piso, numero);
-		unidad.habitar();;
+		unidad.habitar();
+
+		// actualizar la unidad (habitada)
+		unidadRepository.save(unidad);
 	}
 
 	// Santi ------------------------------------------------------------------------------
