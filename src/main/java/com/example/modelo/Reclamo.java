@@ -15,8 +15,11 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-
+import com.example.views.EdificioView;
 import com.example.views.Estado;
+import com.example.views.ImagenView;
+import com.example.views.PersonaView;
+import com.example.views.ReclamoView;
 
 
 @Entity
@@ -98,6 +101,16 @@ public class Reclamo {
 
 	public void cambiarEstado(Estado estado) {
 		this.estado = estado;
+	}
+
+	public ReclamoView toView() {
+
+		// change all imagen in imagenes to view
+		List<ImagenView> imagenes = new ArrayList<ImagenView>();
+		for(Imagen imagen : this.imagenes)
+			imagenes.add(imagen.toView());
+
+		return new ReclamoView(numero, usuario.toView(), edificio.toView(), ubicacion, descripcion, unidad.toView(), estado, imagenes);
 	}
 
 }

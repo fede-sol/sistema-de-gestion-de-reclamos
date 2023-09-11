@@ -1,5 +1,7 @@
 package com.example.modelo;
 
+import com.example.views.ImagenView;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -53,5 +55,9 @@ public class Imagen {
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+
+	public ImagenView toView() {
+		return new ImagenView(numero, direccion, tipo);
 	}
 }

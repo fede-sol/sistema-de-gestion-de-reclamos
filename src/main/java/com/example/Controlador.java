@@ -224,6 +224,15 @@ public class Controlador {
 		return reclamo.getNumero();
 	}
 
+	// función extra (filtrar reclamos por estado -- enum) ---------------- NO TESTED
+	public List<ReclamoView> reclamosPorEstado(Estado estado) {
+		List<ReclamoView> resultado = new ArrayList<ReclamoView>();
+		List<Reclamo> reclamos = reclamoRepository.findAllByEstado(estado);
+		for(Reclamo reclamo : reclamos)
+			resultado.add(reclamo.toView());
+		return resultado;
+	}
+
 	// Juani ------------------------------------------------------------------------------
 
 	public List<ReclamoView> reclamosPorPersona(String documento) {
