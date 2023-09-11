@@ -127,7 +127,23 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner{
 		/* 
 		// agregar persona ---------------------------------------------------
 		Persona lista = controlador.getPersona("konstantinos");
-=======
+
+
+		if (lista != null){
+			System.out.println(lista.getNombre());
+		}else{
+			System.out.println("no hay persona con ese nombre");
+		}
+
+		controlador.agregarPersona("99999999", "konstantinos", "konstagmail.com", "contraK");
+
+		Persona lista2 = controlador.getPersona("konstantinos");
+
+		if (lista2 != null){
+			System.out.println("se cargo exitosamente la persona " + lista2.getNombre());
+		}else{
+			System.out.println("no se cargo la persona");
+		}
 		/*
 
 		// alquilar unidad -------------------------------------------------------
@@ -154,22 +170,8 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner{
 		*/
 
 
-		if (lista != null){
-			System.out.println(lista.getNombre());
-		}else{
-			System.out.println("no hay persona con ese nombre");
-		}
-
-		controlador.agregarPersona("99999999", "konstantinos", "konstagmail.com", "contraK");
-
-		Persona lista2 = controlador.getPersona("konstantinos");
-
-		if (lista2 != null){
-			System.out.println("se cargo exitosamente la persona " + lista2.getNombre());
-		}else{
-			System.out.println("no se cargo la persona");
-		}
-		*/
+		
+		
 		/* 
 		// eliminar persona ---------------------------------------------------
 		Persona lista = controlador.getPersona("konstantinos");
