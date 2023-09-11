@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.example.modelo.Edificio;
 import com.example.modelo.Persona;
 import com.example.modelo.Reclamo;
+import com.example.views.Estado;
 import com.example.views.PersonaView;
 import com.example.views.ReclamoView;
 import com.example.views.UnidadView;
@@ -162,21 +163,55 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner{
 			System.out.println("se elimino exitosamente la persona");
 		}
 		*/
-		
-
+		/* 
 		// reclamos por edificio -------------------------------------------------------
 		List<ReclamoView> lista = controlador.reclamosPorEdificio(2);
-		System.out.println("AAAAAAA");
 		if (lista != null){
 			for (ReclamoView reclamo : lista) {
 				System.out.println(reclamo.toString());
 				}
-			}else{
-				System.out.println("no hay reclamos");
-			}
+		}else{
+			System.out.println("no hay reclamos");
+		}
+		*/
+		/* 
+		// reclamos por unidad -------------------------------------------------------
+		List<ReclamoView> lista = controlador.reclamosPorUnidad(2, "2", "2");
+		if (lista != null){
+			for (ReclamoView reclamo : lista) {
+				System.out.println(reclamo.toString());
+				}
+		}else{
+			System.out.println("no hay reclamos");
+		}
+		*/
+		/* 
+		// reclamos por numero -------------------------------------------------------
+		List<ReclamoView> lista = controlador.reclamosPorNumero(2);
+		if (lista != null){
+			for (ReclamoView reclamo : lista) {
+				System.out.println(reclamo.toString());
+				}
+		}else{
+			System.out.println("no hay reclamos");
+		}
+		*/
+		/* 
+		// agregar reclamo -------------------------------------------------------
+		Long num = controlador.reclamoRepository.count();
+		controlador.agregarReclamo(2, "2", "2", "222222", "2", "nose es para probar");
+		Long num2 = controlador.reclamoRepository.count();
 
-
-
+		if(num < num2){
+			System.out.println("se guardo un reclamo");
+		}else{
+			System.out.println("no hubo cambios en la cantidad de reclamos");
+		}
+		*/
+		/* 
+		// reclamos por estado -------------------------------------------------------
+		System.out.println(controlador. reclamosPorEstado(Estado.abierto));
+		*/
 		
 
 
@@ -190,4 +225,8 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner{
  tenemos metodos para buscar personas por el nombre "getPersona" y por el documento "buscarPersona"
  estos metodos deverian seguir la misma comvencion y denotar bajo que criterio se realiza la busqueda
  buscarPersona es private y getPersona no, no deverian ser las dos public?
+
+ reclamos por unidad, deveria tomar como parametro la misma unidad, actualmente esta tomando su edificio, piso y numero
+
+ public Persona getPersona(String nombre) en controlador, no habria q pasar esto al repository?
  */
