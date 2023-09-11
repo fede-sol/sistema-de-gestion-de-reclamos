@@ -10,7 +10,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.example.modelo.Edificio;
 import com.example.modelo.Persona;
+import com.example.modelo.Reclamo;
 import com.example.views.PersonaView;
+import com.example.views.ReclamoView;
 import com.example.views.UnidadView;
 
 
@@ -119,12 +121,73 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner{
 		controlador.agregarDuenioUnidad(1, "10", "6", "CI 13230978");
 
 		*/
+		//##############################################
+		/* 
+		// agregar persona ---------------------------------------------------
+		Persona lista = controlador.getPersona("konstantinos");
+
+		if (lista != null){
+			System.out.println(lista.getNombre());
+		}else{
+			System.out.println("no hay persona con ese nombre");
+		}
+
+		controlador.agregarPersona("99999999", "konstantinos", "konstagmail.com", "contraK");
+
+		Persona lista2 = controlador.getPersona("konstantinos");
+
+		if (lista2 != null){
+			System.out.println("se cargo exitosamente la persona " + lista2.getNombre());
+		}else{
+			System.out.println("no se cargo la persona");
+		}
+		*/
+		/* 
+		// eliminar persona ---------------------------------------------------
+		Persona lista = controlador.getPersona("konstantinos");
+
+		if (lista != null){
+			System.out.println("existe la persona " + lista.getNombre());
+		}else{
+			System.out.println("no hay persona con ese nombre");
+		}
+
+		controlador.eliminarPersona("99999999");
+
+		Persona lista2 = controlador.getPersona("konstantinos");
+
+		if (lista2 != null){
+			System.out.println("no se elimino la persona " + lista2.getNombre());
+		}else{
+			System.out.println("se elimino exitosamente la persona");
+		}
+		*/
+		
+
+		// reclamos por edificio -------------------------------------------------------
+		List<ReclamoView> lista = controlador.reclamosPorEdificio(2);
+		System.out.println("AAAAAAA");
+		if (lista != null){
+			for (ReclamoView reclamo : lista) {
+				System.out.println(reclamo.toString());
+				}
+			}else{
+				System.out.println("no hay reclamos");
+			}
 
 
 
+		
 
 
 
 	}
 
 }
+
+// ANOTACIONES
+/*
+ tenemos metodos para buscar personas por el nombre "getPersona" y por el documento "buscarPersona"
+ estos metodos deverian seguir la misma comvencion y denotar bajo que criterio se realiza la busqueda
+ buscarPersona es private y getPersona no, no deverian ser las dos public?
+ */

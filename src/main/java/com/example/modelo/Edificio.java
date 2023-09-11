@@ -55,6 +55,8 @@ public class Edificio {
 		return habilitados;
 	}
 
+
+
 	public int getCodigo() {
 		return codigo;
 	}
