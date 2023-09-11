@@ -113,7 +113,12 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner{
 		controlador.transferirUnidad(1, "10", "6", "CI 13230978");
 
 		*/
+		/*
 
+		// agregar dueno a unidad -------------------------------------------------------
+		controlador.agregarDuenioUnidad(1, "10", "6", "CI 13230978");
+
+		*/
 
 
 

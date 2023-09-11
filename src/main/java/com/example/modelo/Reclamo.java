@@ -5,6 +5,8 @@ import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -37,11 +39,12 @@ public class Reclamo {
 	@ManyToOne
 	@JoinColumn(name="identificador")
 	private Unidad unidad;
+	@Enumerated(EnumType.ORDINAL)
 	private Estado estado;
 	@OneToMany
 	@JoinColumn(name="numero")
 	private List<Imagen> imagenes;
-	
+
 	public Reclamo(Persona usuario, Edificio edificio, String ubicacion, String descripcion, Unidad unidad) {
 		this.usuario = usuario;
 		this.edificio = edificio;
@@ -56,7 +59,7 @@ public class Reclamo {
 		Imagen imagen = new Imagen(direccion, tipo);
 		imagenes.add(imagen);
 	}
-	
+
 	public int getNumero() {
 		return numero;
 	}

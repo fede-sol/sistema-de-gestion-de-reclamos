@@ -149,6 +149,9 @@ public class Controlador {
 		Unidad unidad = buscarUnidad(codigo, piso, numero);
 		Persona persona = buscarPersona(documento);
 		unidad.agregarDuenio(persona);
+
+		// actualizar la unidad con el dueño agregado
+		unidadRepository.save(unidad);
 	}
 
 	public void alquilarUnidad(int codigo, String piso, String numero, String documento) throws UnidadException, PersonaException{
@@ -166,6 +169,9 @@ public class Controlador {
 	public void liberarUnidad(int codigo, String piso, String numero) throws UnidadException {
 		Unidad unidad = buscarUnidad(codigo, piso, numero);
 		unidad.liberar();
+
+		// actualizar la unidad eliminando los inquilinos
+		unidadRepository.save(unidad);
 	}
 
 	public void habitarUnidad(int codigo, String piso, String numero) throws UnidadException {
