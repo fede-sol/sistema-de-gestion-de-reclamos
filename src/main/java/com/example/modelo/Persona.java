@@ -36,7 +36,7 @@ public class Persona {
 	public void cambiarPassword(String password) {
 		this.password = password;
 	}
-	
+
 	public String getDocumento() {
 		return documento;
 	}
@@ -45,7 +45,7 @@ public class Persona {
 		return nombre;
 	}
 
-	
+
 	public String getMail() {
 		return mail;
 	}

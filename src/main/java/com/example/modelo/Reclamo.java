@@ -91,11 +91,11 @@ public class Reclamo {
 	public Estado getEstado() {
 		return estado;
 	}
-	
+
 	public List<Imagen> getImagenes(){
 		return this.imagenes;
 	}
-	
+
 	public void cambiarEstado(Estado estado) {
 		this.estado = estado;
 	}
