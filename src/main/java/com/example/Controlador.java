@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.swing.text.html.Option;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 
 import com.example.exceptions.EdificioException;
@@ -67,10 +68,14 @@ public class Controlador {
 	}
 
 	public Persona getPersona(String nombre){
+
 		Optional<Persona> lista = personaRepository.findByNombre(nombre);
 
-
-		return lista.get();
+		if(lista.isEmpty()){
+			return null;
+		}else{
+			return lista.get(); //si retorno solo esto cuando es null, tira una ecepcion... genera un error
+		}
 	}
 
 	// Fede -----------------------------------------------------------------------------
@@ -194,37 +199,59 @@ public class Controlador {
 		personaRepository.save(persona);
 		//guardar el objeto
 	}
-
-	public void eliminarPersona(String documento) throws PersonaException {
+	
+	public void eliminarPersona(String documento) throws PersonaException {  
 		Persona persona = buscarPersona(documento);
+		personaRepository.delete(persona);
 		//eliminar el objeto
-
 	}
-
-	public List<ReclamoView> reclamosPorEdificio(int codigo){
-		List<ReclamoView> resultado = new ArrayList<ReclamoView>();
-		return resultado;
+	//############################################## me tira un problema con id_reclamo
+	public List<ReclamoView> reclamosPorEdificio(int codigo)throws EdificioException{
+		Edificio edificio = edificioRepository.findById(codigo).get();
+		List<Reclamo> reclamos = reclamoRepository.findByEdificio(edificio);
+		List<ReclamoView> reclamos2 = new ArrayList<ReclamoView>();
+		for(Reclamo elemento: reclamos){
+			reclamos2.add(elemento.toView());
+		}
+		return reclamos2;
 	}
-
+	//##############################################  "Failed to execute CommandLineRunner"
 	public List<ReclamoView> reclamosPorUnidad(int codigo, String piso, String numero) {
-		List<ReclamoView> resultado = new ArrayList<ReclamoView>();
-		return resultado;
+		Edificio edificio = edificioRepository.findById(codigo).get();
+		List<Unidad> unidades = edificio.getUnidades();
+		Unidad unidad = new Unidad();
+		for(Unidad elemento: unidades){
+			if(elemento.getPiso() == piso){
+				unidad = elemento;
+			}
+		}
+		List<Reclamo> reclamos = reclamoRepository.findByUnidad(unidad);
+		List<ReclamoView> reclamosV = new ArrayList<>();
+		for(Reclamo elemento : reclamos){
+			reclamosV.add(elemento.toView());
+		}
+		return reclamosV;
 	}
-
-	public ReclamoView reclamosPorNumero(int numero) {
-		ReclamoView resultado = null;
-		return resultado;
+	//############################################## me tira un problema con id_reclamo
+	public List<ReclamoView> reclamosPorNumero(int numero) {
+		List<Reclamo> resultado = reclamoRepository.findByNumero(numero);
+		List<ReclamoView> reclamos = new ArrayList<>();
+		for(Reclamo elemento : resultado){
+			reclamos.add(elemento.toView());
+		}
+		return reclamos;
 	}
-
-	public int agregarReclamo(int codigo, String piso, String numero, String documento, String ubicacion, String descripcion) throws EdificioException, UnidadException, PersonaException {
+	//############################################## ConditionEvaluationReportLogger, creo q hay un error con las busquedas
+	public void agregarReclamo(int codigo, String piso, String numeroEdificio, String documento, String ubicacion, String descripcion) throws EdificioException, UnidadException, PersonaException {
 		Edificio edificio = buscarEdificio(codigo);
-		Unidad unidad = buscarUnidad(codigo, piso, numero);
+		Unidad unidad = buscarUnidad(codigo, piso, numeroEdificio);
 		Persona persona = buscarPersona(documento);
 		Reclamo reclamo = new Reclamo(persona, edificio, ubicacion, descripcion, unidad);
-		return reclamo.getNumero();
+		reclamoRepository.save(reclamo);
 	}
 
 	// función extra (filtrar reclamos por estado -- enum) ---------------- NO TESTED
+	//##############################################  problemoas con id_reclmao
 	public List<ReclamoView> reclamosPorEstado(Estado estado) {
 		List<ReclamoView> resultado = new ArrayList<ReclamoView>();
 		List<Reclamo> reclamos = reclamoRepository.findAllByEstado(estado);
