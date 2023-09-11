@@ -18,6 +18,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -34,14 +35,14 @@ public class Unidad {
 	@ManyToOne
 	@JoinColumn(name="codigoedificio")
 	private Edificio edificio;
-	@ManyToMany(fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "duenios",
 		joinColumns = @JoinColumn( name="identificador"),
         inverseJoinColumns = @JoinColumn(name = "documento")
     )
     private List<Persona> duenios;
-    @ManyToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "inquilinos",
 		joinColumns = @JoinColumn( name="identificador"),

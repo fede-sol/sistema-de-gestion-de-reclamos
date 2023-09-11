@@ -5,7 +5,6 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.modelo.Unidad;
-import com.example.modelo.Persona;
 
 
 

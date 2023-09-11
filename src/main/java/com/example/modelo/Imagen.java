@@ -23,7 +23,7 @@ public class Imagen {
 	@Column(name="path")
 	private String direccion;
 	private String tipo;
-	private int idReclamo;
+	private int idreclamo;
 
 
 	public Imagen(){}

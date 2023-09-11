@@ -214,7 +214,7 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner{
 			System.out.println("no hay reclamos");
 		}
 		*/
-		/* 
+		 
 		// reclamos por numero -------------------------------------------------------
 		List<ReclamoView> lista = controlador.reclamosPorNumero(2);
 		if (lista != null){
@@ -224,7 +224,7 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner{
 		}else{
 			System.out.println("no hay reclamos");
 		}
-		*/
+		
 		/* 
 		// agregar reclamo -------------------------------------------------------
 		Long num = controlador.reclamoRepository.count();
