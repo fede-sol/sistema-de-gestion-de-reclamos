@@ -13,5 +13,8 @@ public interface ReclamoRepository extends JpaRepository<Reclamo, Integer>{
     public Optional<Reclamo> findByNumero(int numero);
 
     public List<Reclamo> findAllByEstado(Estado estado);
+
+    // find by persona
+    public List<Reclamo> findAllByUsuario_Documento(String documento);
 }
 
