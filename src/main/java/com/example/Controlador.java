@@ -262,19 +262,32 @@ public class Controlador {
 
 	// Juani ------------------------------------------------------------------------------
 
-	public List<ReclamoView> reclamosPorPersona(String documento) {
-		List<ReclamoView> resultado = new ArrayList<ReclamoView>();
-		return resultado;
+	// NO TESTED ---------------------------
+	public List<ReclamoView> reclamosPorPersona(String documento) throws PersonaException {
+		List<ReclamoView> reclamos = new ArrayList<ReclamoView>();
+		Persona persona = buscarPersona(documento);
+		List<Reclamo> reclamosPersona = reclamoRepository.findAllByUsuario_Documento(documento);
+		for(Reclamo reclamo : reclamosPersona)
+			reclamos.add(reclamo.toView());
+		return reclamos;
 	}
 
+	// NO TESTED ---------------------------
 	public void agregarImagenAReclamo(int numero, String direccion, String tipo) throws ReclamoException {
 		Reclamo reclamo = buscarReclamo(numero);
 		reclamo.agregarImagen(direccion, tipo);
+
+		// actualizar el reclamo con la nueva imagen
+		reclamoRepository.save(reclamo);
 	}
 
+	// NO TESTED ---------------------------
 	public void cambiarEstado(int numero, Estado estado) throws ReclamoException {
 		Reclamo reclamo = buscarReclamo(numero);
 		reclamo.cambiarEstado(estado);
+
+		// actualizar el reclamo con el nuevo estado
+		reclamoRepository.save(reclamo);
 	}
 
 	// DONE (JPA Repository) - Internal

@@ -1,10 +1,10 @@
 package com.example.views;
 
 public class PersonaView {
-	
+
 	private String documento;
 	private String nombre;
-	
+
 	public PersonaView() {}
 
 	public PersonaView(String documento, String nombre) {

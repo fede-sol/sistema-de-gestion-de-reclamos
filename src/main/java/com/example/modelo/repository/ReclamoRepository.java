@@ -18,8 +18,13 @@ public interface ReclamoRepository extends JpaRepository<Reclamo, Integer>{
 
     public List<Reclamo> findAllByEstado(Estado estado);
 
+
  
     public List<Reclamo> findByEdificio(Edificio codigo);
     public List<Reclamo> findByUnidad(Unidad identificador);
+
+    // find by persona
+    public List<Reclamo> findAllByUsuario_Documento(String documento);
+
 }
 

@@ -122,10 +122,37 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner{
 		controlador.agregarDuenioUnidad(1, "10", "6", "CI 13230978");
 
 		*/
+
 		//##############################################
 		/* 
 		// agregar persona ---------------------------------------------------
 		Persona lista = controlador.getPersona("konstantinos");
+=======
+		/*
+
+		// alquilar unidad -------------------------------------------------------
+		controlador.alquilarUnidad(2, "4", "2", "CI 13230978");
+
+		*/
+		/*
+
+		// agregar inquilino a unidad -------------------------------------------------------
+		controlador.agregarInquilinoUnidad(1, "10", "6", "CI 13230978");
+
+		*/
+		/*
+
+		// liberar unidad -------------------------------------------------------
+		controlador.liberarUnidad(1, "10", "6");
+
+		*/
+		/*
+
+		// habitar unidad -------------------------------------------------------
+		controlador.habitarUnidad(1, "10", "6");
+
+		*/
+
 
 		if (lista != null){
 			System.out.println(lista.getNombre());
