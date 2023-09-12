@@ -11,28 +11,27 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
-
-
 @Entity
-@Table(name="imagenes")
+@Table(name = "imagenes")
 public class Imagen {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int numero;
-	@Column(name="path")
+	@Column(name = "path")
 	private String direccion;
 	private String tipo;
 	@JoinColumn(name="idreclamo")
 	@Column(nullable = true)
 	private int idreclamo;
 
+	public Imagen() {
+	}
 
-	public Imagen(){}
-
-	public Imagen(String direccion, String tipo) {
+	public Imagen(String direccion, String tipo, int idreclamo) {
 		this.direccion = direccion;
 		this.tipo = tipo;
+		this.idreclamo = idreclamo;
 	}
 
 	public int getNumero() {
