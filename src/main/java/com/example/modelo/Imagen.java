@@ -23,6 +23,8 @@ public class Imagen {
 	@Column(name="path")
 	private String direccion;
 	private String tipo;
+	@JoinColumn(name="idreclamo")
+	@Column(nullable = true)
 	private int idreclamo;
 
 

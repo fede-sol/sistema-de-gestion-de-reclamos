@@ -132,4 +132,13 @@ public class Unidad {
 		EdificioView auxEdificio = edificio.toView();
 		return new UnidadView(id, piso, numero, estaHabitado(), auxEdificio);
 	}
+
+	public void borrarInquilino(String documento) {
+		for (Persona persona : this.inquilinos) {
+			if(persona.getDocumento() == documento){
+			this.inquilinos.remove(persona);
+			}
+		}
+		
+	}
 }

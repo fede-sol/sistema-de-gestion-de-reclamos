@@ -16,6 +16,7 @@ import com.example.exceptions.PersonaException;
 import com.example.exceptions.ReclamoException;
 import com.example.exceptions.UnidadException;
 import com.example.modelo.Edificio;
+import com.example.modelo.Imagen;
 import com.example.modelo.Persona;
 import com.example.modelo.Reclamo;
 import com.example.modelo.Unidad;
@@ -50,33 +51,6 @@ public class Controlador {
 	@Autowired
 	UnidadRepository unidadRepository;
 
-	public void prueba(){
-
-
-
-		List<Edificio> lista = edificioRepository.findAll();
-
-
-
-		System.out.println();
-
-
-	}
-
-	public List<EdificioView> getEdificios(){
-		return null;
-	}
-
-	public Persona getPersona(String nombre){
-
-		Optional<Persona> lista = personaRepository.findByNombre(nombre);
-
-		if(lista.isEmpty()){
-			return null;
-		}else{
-			return lista.get(); //si retorno solo esto cuando es null, tira una ecepcion... genera un error
-		}
-	}
 
 	// Fede -----------------------------------------------------------------------------
 
@@ -200,22 +174,42 @@ public class Controlador {
 		//guardar el objeto
 	}
 	
-	public void eliminarPersona(String documento) throws PersonaException {  
-		Persona persona = buscarPersona(documento);
-		personaRepository.delete(persona);
+	public void eliminarPersona(String documento) throws PersonaException { 
+		if(!unidadRepository.findAllByDueniosDocumento(documento).isEmpty()){
+			throw new PersonaException("la persona es un duenio");
+		}else{
+			///buscar sus reclamos
+			List<Reclamo> reclamos = reclamoRepository.findAllByUsuario_Documento(documento);
+			for(Reclamo elemento : reclamos){
+				for (Imagen foto : elemento.getImagenes()) {
+					imagenRepository.delete(imagenRepository.findById(foto.getNumero()).get());
+				}
+				elemento.borrarImagenes();
+				reclamoRepository.save(elemento);
+				reclamoRepository.delete(elemento);
+				
+			}
+			//buscar si es inquilino
+			List<Unidad> unidades = unidadRepository.findAllByInquilinosDocumento(documento);
+			for(Unidad elemento : unidades){
+				elemento.borrarInquilino(documento);
+				unidadRepository.save(elemento);
+			}
+			personaRepository.delete(buscarPersona(documento));
+		}
 		//eliminar el objeto
 	}
-	//############################################## me tira un problema con id_reclamo
+ 
 	public List<ReclamoView> reclamosPorEdificio(int codigo)throws EdificioException{
 		Edificio edificio = edificioRepository.findById(codigo).get();
-		List<Reclamo> reclamos = reclamoRepository.findByEdificio(edificio);
+		List<Reclamo> reclamos = reclamoRepository.findByEdificio_Codigo(edificio.getCodigo());
 		List<ReclamoView> reclamos2 = new ArrayList<ReclamoView>();
 		for(Reclamo elemento: reclamos){
 			reclamos2.add(elemento.toView());
 		}
 		return reclamos2;
 	}
-	//##############################################  "Failed to execute CommandLineRunner"
+	
 	public List<ReclamoView> reclamosPorUnidad(int codigo, String piso, String numero) {
 		Edificio edificio = edificioRepository.findById(codigo).get();
 		List<Unidad> unidades = edificio.getUnidades();
@@ -225,14 +219,14 @@ public class Controlador {
 				unidad = elemento;
 			}
 		}
-		List<Reclamo> reclamos = reclamoRepository.findByUnidad(unidad);
+		List<Reclamo> reclamos = reclamoRepository.findByUnidad_Id(unidad.getId()); 
 		List<ReclamoView> reclamosV = new ArrayList<>();
 		for(Reclamo elemento : reclamos){
 			reclamosV.add(elemento.toView());
 		}
 		return reclamosV;
 	}
-	//############################################## me tira un problema con id_reclamo
+
 	public List<ReclamoView> reclamosPorNumero(int numero) {
 		List<Reclamo> resultado = reclamoRepository.findByNumero(numero);
 		List<ReclamoView> reclamos = new ArrayList<>();
@@ -241,17 +235,21 @@ public class Controlador {
 		}
 		return reclamos;
 	}
-	//############################################## ConditionEvaluationReportLogger, creo q hay un error con las busquedas
+	
 	public void agregarReclamo(int codigo, String piso, String numeroEdificio, String documento, String ubicacion, String descripcion) throws EdificioException, UnidadException, PersonaException {
 		Edificio edificio = buscarEdificio(codigo);
-		Unidad unidad = buscarUnidad(codigo, piso, numeroEdificio);
-		Persona persona = buscarPersona(documento);
-		Reclamo reclamo = new Reclamo(persona, edificio, ubicacion, descripcion, unidad);
-		reclamoRepository.save(reclamo);
+		if(edificio.getUnidades().contains(buscarUnidad(codigo, piso, numeroEdificio))){
+			if((buscarUnidad(codigo, piso, numeroEdificio).getInquilinos().contains(buscarPersona(documento))) || (buscarUnidad(codigo, piso, numeroEdificio).getDuenios().contains(buscarPersona(documento)))){
+				Reclamo reclamo = new Reclamo(buscarPersona(documento), edificio, ubicacion, descripcion, buscarUnidad(codigo, piso, numeroEdificio));
+				reclamoRepository.save(reclamo);
+			}else{
+				throw new UnidadException("la persona no es duenio y/o inquilino");
+			}
+		}else{
+			throw new EdificioException("la unidad no esta en el edificio");
+		}
 	}
 
-	// función extra (filtrar reclamos por estado -- enum) ---------------- NO TESTED
-	//##############################################  problemoas con id_reclmao
 	public List<ReclamoView> reclamosPorEstado(Estado estado) {
 		List<ReclamoView> resultado = new ArrayList<ReclamoView>();
 		List<Reclamo> reclamos = reclamoRepository.findAllByEstado(estado);
@@ -311,7 +309,7 @@ public class Controlador {
 	}
 
 	// DONE (JPA Repository) - Internal
-	private Persona buscarPersona(String documento) throws PersonaException {
+	public Persona buscarPersona(String documento) throws PersonaException { //////////////$$$$$$$$$$$$$$$$$$ private
 		Optional<Persona> persona = personaRepository.findById(documento);
 
 		if (persona.isPresent())

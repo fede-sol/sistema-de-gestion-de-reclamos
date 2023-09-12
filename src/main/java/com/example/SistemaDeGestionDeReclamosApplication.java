@@ -124,9 +124,9 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner{
 		*/
 
 		//##############################################
-		/* 
+		/*
 		// agregar persona ---------------------------------------------------
-		Persona lista = controlador.getPersona("konstantinos");
+		Persona lista = controlador.buscarPersona("99999999");
 
 
 		if (lista != null){
@@ -137,15 +137,15 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner{
 
 		controlador.agregarPersona("99999999", "konstantinos", "konstagmail.com", "contraK");
 
-		Persona lista2 = controlador.getPersona("konstantinos");
+		Persona lista2 = controlador.buscarPersona("99999999");
 
 		if (lista2 != null){
 			System.out.println("se cargo exitosamente la persona " + lista2.getNombre());
 		}else{
 			System.out.println("no se cargo la persona");
 		}
-		/*
-
+		*/
+		/* 
 		// alquilar unidad -------------------------------------------------------
 		controlador.alquilarUnidad(2, "4", "2", "CI 13230978");
 
@@ -174,7 +174,7 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner{
 		
 		/* 
 		// eliminar persona ---------------------------------------------------
-		Persona lista = controlador.getPersona("konstantinos");
+		Persona lista = controlador.buscarPersona("DNI30108780");
 
 		if (lista != null){
 			System.out.println("existe la persona " + lista.getNombre());
@@ -182,17 +182,9 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner{
 			System.out.println("no hay persona con ese nombre");
 		}
 
-		controlador.eliminarPersona("99999999");
-
-		Persona lista2 = controlador.getPersona("konstantinos");
-
-		if (lista2 != null){
-			System.out.println("no se elimino la persona " + lista2.getNombre());
-		}else{
-			System.out.println("se elimino exitosamente la persona");
-		}
+		controlador.eliminarPersona("DNI30108780");
 		*/
-		/* 
+		/*
 		// reclamos por edificio -------------------------------------------------------
 		List<ReclamoView> lista = controlador.reclamosPorEdificio(2);
 		if (lista != null){
@@ -205,16 +197,18 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner{
 		*/
 		/* 
 		// reclamos por unidad -------------------------------------------------------
-		List<ReclamoView> lista = controlador.reclamosPorUnidad(2, "2", "2");
+		List<ReclamoView> lista = controlador.reclamosPorUnidad(1, "10", "6");
 		if (lista != null){
-			for (ReclamoView reclamo : lista) {
-				System.out.println(reclamo.toString());
-				}
+			System.out.println("ccreo q andaaaaaaOOOOOOO");
+			
+			System.out.println(lista.size());
+			System.out.println("ccreo q andaaaaaa");
+			
 		}else{
 			System.out.println("no hay reclamos");
 		}
 		*/
-		 
+		/* 
 		// reclamos por numero -------------------------------------------------------
 		List<ReclamoView> lista = controlador.reclamosPorNumero(2);
 		if (lista != null){
@@ -224,11 +218,11 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner{
 		}else{
 			System.out.println("no hay reclamos");
 		}
-		
+		*/
 		/* 
 		// agregar reclamo -------------------------------------------------------
 		Long num = controlador.reclamoRepository.count();
-		controlador.agregarReclamo(2, "2", "2", "222222", "2", "nose es para probar");
+		controlador.agregarReclamo(1, "10", "1", "CI 13230978", "2", "nose es para probar1");
 		Long num2 = controlador.reclamoRepository.count();
 
 		if(num < num2){
@@ -239,7 +233,7 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner{
 		*/
 		/* 
 		// reclamos por estado -------------------------------------------------------
-		System.out.println(controlador. reclamosPorEstado(Estado.abierto));
+		System.out.println(controlador. reclamosPorEstado(Estado.nuevo));
 		*/
 		
 
@@ -252,10 +246,9 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner{
 // ANOTACIONES
 /*
  tenemos metodos para buscar personas por el nombre "getPersona" y por el documento "buscarPersona"
- estos metodos deverian seguir la misma comvencion y denotar bajo que criterio se realiza la busqueda
- buscarPersona es private y getPersona no, no deverian ser las dos public?
+
+
 
  reclamos por unidad, deveria tomar como parametro la misma unidad, actualmente esta tomando su edificio, piso y numero
 
- public Persona getPersona(String nombre) en controlador, no habria q pasar esto al repository?
  */

@@ -15,4 +15,6 @@ public interface UnidadRepository extends JpaRepository<Unidad, Integer>{
     // find unidad por (int codigo, String piso, String numero)
     public Optional<Unidad> findByEdificioCodigoAndPisoAndNumero(int codigo, String piso, String numero);
 
+    public List<Unidad> findAllByInquilinosDocumento(String documento);
+
 }

@@ -46,7 +46,7 @@ public class Reclamo {
 	@Enumerated(EnumType.STRING)
 	private Estado estado;
 	@OneToMany(fetch = FetchType.EAGER)
-	@JoinColumn(name="numero")
+	@JoinColumn(name = "idreclamo")
 	private List<Imagen> imagenes;
 
 	public Reclamo(){}
@@ -78,6 +78,7 @@ public class Reclamo {
 		return usuario;
 	}
 
+
 	public Edificio getEdificio() {
 		return edificio;
 	}
@@ -102,6 +103,9 @@ public class Reclamo {
 		return this.imagenes;
 	}
 
+	public void borrarImagenes(){
+		this.imagenes = new ArrayList<Imagen>();
+	}
 	public void cambiarEstado(Estado estado) {
 		this.estado = estado;
 	}
