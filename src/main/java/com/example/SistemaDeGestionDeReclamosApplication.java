@@ -189,7 +189,7 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner 
 		*/
 
 
-		
+		/*
 		
 		// reclamos por edificio -----------------------------------------------------------
 		List<ReclamoView> lista11 = controlador.reclamosPorEdificio(1);
@@ -200,12 +200,12 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner 
 		} else {
 			System.out.println("no hay reclamos");
 		}
-		
+		*/
 
 
-		/* 
+		/*
 		// reclamos por unidad --------------------------------------------------------------
-		List<ReclamoView> lista12 = controlador.reclamosPorUnidad(2, "25", "5"); ///1, "8", "6"
+		List<ReclamoView> lista12 = controlador.reclamosPorUnidad(2, "25", "5"); 
 		if (!lista12.isEmpty()) {
 			for (ReclamoView reclamo : lista12) {
 				System.out.println(reclamo.toString());
@@ -216,7 +216,7 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner 
 		*/
 
 
-		/* 
+		/*
 		// reclamos por numero --------------------------------------------------------------
 		List<ReclamoView> lista13 = controlador.reclamosPorNumero(2);
 		if (!lista13.isEmpty()) {
@@ -230,8 +230,7 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner 
 
 
 		/* 
-		// reclamos por estado --------------------------------------------------------------
-		System.out.println(controlador.reclamosPorEstado(Estado.abierto));
+		
 		
 		// reclamosPorPersona----------------------------------------------------------------
 		List<ReclamoView> reclamos = controlador.reclamosPorPersona("DNI29988738");

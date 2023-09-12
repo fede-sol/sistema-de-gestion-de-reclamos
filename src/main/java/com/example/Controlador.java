@@ -170,7 +170,7 @@ public class Controlador {
 	}
 
 	public List<ReclamoView> reclamosPorEdificio(int codigo) throws EdificioException {
-		Edificio edificio = edificioRepository.findById(codigo).get();
+		Edificio edificio = buscarEdificio(codigo);
 		List<Reclamo> reclamos = reclamoRepository.findByEdificio_Codigo(edificio.getCodigo());
 		List<ReclamoView> reclamos2 = new ArrayList<ReclamoView>();
 		for (Reclamo elemento : reclamos) {
@@ -179,9 +179,9 @@ public class Controlador {
 		return reclamos2;
 	}
 
-	public List<ReclamoView> reclamosPorUnidad(int codigo, String piso, String numero) {
+	public List<ReclamoView> reclamosPorUnidad(int codigo, String piso, String numero) throws UnidadException{
 
-		Unidad unidad = unidadRepository.findByEdificioCodigoAndPisoAndNumero(codigo,piso,numero).get();
+		Unidad unidad = buscarUnidad(codigo,piso,numero);
 		
 		List<Reclamo> reclamos = reclamoRepository.findByUnidad_Id(unidad.getId());
 		List<ReclamoView> reclamosV = new ArrayList<>();
