@@ -13,6 +13,7 @@ import com.example.views.Estado;
 import com.example.views.PersonaView;
 import com.example.views.ReclamoView;
 import com.example.views.UnidadView;
+import com.example.views.EdificioView;
 
 @SpringBootApplication
 public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner {
@@ -37,6 +38,8 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner 
 			System.out.println("no hay unidades");
 		}
 		*/
+
+
 		/* 
 		// Habilitados por edificio ---------------------------------------------------------
 		List<PersonaView> lista2 = controlador.habilitadosPorEdificio(1);
@@ -48,6 +51,8 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner 
 			System.out.println("no hay personas");
 		}
 		*/
+
+
 		/* 
 		// dueños por edificio --------------------------------------------------------------  
 		List<PersonaView> lista3 = controlador.dueniosPorEdificio(1);
@@ -59,6 +64,8 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner 
 			System.out.println("no hay dueños");
 		}
 		*/
+
+
 		/* 
 		// Habitantes por edificio ----------------------------------------------------------
 		List<PersonaView> lista4 = controlador.habitantesPorEdificio(1);
@@ -70,6 +77,8 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner 
 			System.out.println("no hay habitantes");
 		}
 		*/
+
+
 		/* 
 		// dueños por unidad ----------------------------------------------------------------
 		List<PersonaView> lista5 = controlador.dueniosPorUnidad(1, "1", "1");
@@ -81,6 +90,8 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner 
 			System.out.println("no hay dueños");
 		}
 		*/
+
+
 		/* 
 		// inquilinos por unidad ------------------------------------------------------------
 		List<PersonaView> lista6 = controlador.inquilinosPorUnidad(1, "9", "5");
@@ -92,8 +103,10 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner 
 			System.out.println("no hay dueños");
 		}
 		*/
+
+
 		/*
-		// agregar dueno a unidad -----------------------------------------------------------
+		// agregar dueño a unidad -----------------------------------------------------------
 		int tam = controlador.dueniosPorUnidad(1, "9", "5").size();
 		controlador.agregarDuenioUnidad(1, "9", "5", "DNI30012288");
 		int tam2 = controlador.dueniosPorUnidad(1, "9", "5").size();
@@ -104,6 +117,8 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner 
 			System.out.println("no se cargo el duenio");
 		}
 		*/
+
+
 		/*
 		// agregar persona ------------------------------------------------------------------
 		controlador.agregarPersona("99999999", "konstantinos", "konstagmail.com", "contraK");
@@ -114,11 +129,15 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner 
 			System.out.println("no se cargo la persona");
 		}
 		*/
+
+
 		/*
 		// alquilar unidad ------------------------------------------------------------------
 		controlador.alquilarUnidad(2, "4", "3", "CI 13230978");
 		System.out.println("se alquilo la unidad");
 		*/
+
+
 		/* 
 		// agregar inquilino a unidad -------------------------------------------------------
 		int tam4 = controlador.buscarUnidad(1, "10", "6").getInquilinos().size();
@@ -130,6 +149,8 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner 
 			System.out.println("no se agrego el inquilino");
 		}
 		*/
+
+
 		/* 
 		// liberar unidad -------------------------------------------------------------------
 		controlador.alquilarUnidad(1, "10", "6", "CI 13230978");
@@ -147,6 +168,8 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner 
 			System.out.println("la unidad esta libre");
 		}
 		*/
+
+
 		/* 
 		// habitar unidad -------------------------------------------------------------------
 		controlador.liberarUnidad(1, "10", "6");
@@ -164,28 +187,22 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner 
 			System.out.println("la unidad ya esta habitada");
 		}
 		*/
-		/* 
-		// eliminar persona -----------------------------------------------------------------
-		Persona lista9 = controlador.buscarPersona("99999999");
-		if (lista9 != null) {
-			System.out.println("existe la persona " + lista9.getNombre());
-		} else {
-			System.out.println("no hay persona con ese nombre");
-		}
-		controlador.eliminarPersona("99999999");
-		System.out.println("se elimino la persona");
-		*/
-		/* 
+
+
+		
+		
 		// reclamos por edificio -----------------------------------------------------------
-		List<ReclamoView> lista11 = controlador.reclamosPorEdificio(2);
-		if (lista11 != null) {
+		List<ReclamoView> lista11 = controlador.reclamosPorEdificio(1);
+		if (!lista11.isEmpty()) {
 			for (ReclamoView reclamo : lista11) {
 				System.out.println(reclamo.toString());
 			}
 		} else {
 			System.out.println("no hay reclamos");
 		}
-		*/
+		
+
+
 		/* 
 		// reclamos por unidad --------------------------------------------------------------
 		List<ReclamoView> lista12 = controlador.reclamosPorUnidad(2, "25", "5"); ///1, "8", "6"
@@ -197,6 +214,8 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner 
 			System.out.println("no hay reclamos");
 		}
 		*/
+
+
 		/* 
 		// reclamos por numero --------------------------------------------------------------
 		List<ReclamoView> lista13 = controlador.reclamosPorNumero(2);
@@ -208,17 +227,8 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner 
 			System.out.println("no hay reclamos");
 		}
 		*/
-		/*
-		// agregar reclamo ------------------------------------------------------------------
-		Long numero = controlador.reclamoRepository.count();
-		controlador.agregarReclamo(1, "2", "1", "222222", "2", "nose es para probar");
-		Long numero2 = controlador.reclamoRepository.count();
-		if (numero < numero2) {
-			System.out.println("se guardo un reclamo");
-		} else {
-			System.out.println("no hubo cambios en la cantidad de reclamos");
-		}
-		*/
+
+
 		/* 
 		// reclamos por estado --------------------------------------------------------------
 		System.out.println(controlador.reclamosPorEstado(Estado.abierto));
@@ -232,7 +242,10 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner 
 		} else {
 			System.out.println("no hay reclamos");
 		}
-		
+		*/
+
+
+		/*
 		// eliminar persona -----------------------------------------------------------------
 		Persona lista14 = controlador.buscarPersona("DNI30108780");
 		if (lista14 != null) {
@@ -241,60 +254,36 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner 
 			System.out.println("no hay persona con ese nombre");
 		}
 		controlador.eliminarPersona("DNI30108780");
-		
-		// reclamos por edificio ------------------------------------------------------------
-		List<ReclamoView> lista15 = controlador.reclamosPorEdificio(2);
-		if (lista15 != null) {
-			for (ReclamoView reclamo : lista15) {
-				System.out.println(reclamo.toString());
-			}
-		} else {
-			System.out.println("no hay reclamos");
-		}
-		
-		// reclamos por unidad --------------------------------------------------------------		
-		List<ReclamoView> lista16 = controlador.reclamosPorUnidad(1, "10", "6");
-		if (lista16 != null) {
-			System.out.println(lista16.size());
-		} else {
-			System.out.println("no hay reclamos");
-		}
-		
-		// reclamos por numero --------------------------------------------------------------
-		List<ReclamoView> lista = controlador.reclamosPorNumero(2);
-		if (lista != null) {
-			for (ReclamoView reclamo : lista) {
-				System.out.println(reclamo.toString());
-			}
-		} else {
-			System.out.println("no hay reclamos");
-		}
 		*/
+
+
+
+
 		// agregar reclamo ------------------------------------------------------------------
+		/*
 		Long num = controlador.reclamoRepository.count();
-		controlador.agregarReclamo(1, "10", "1", "CI 13230978", "cocina", "nose es para probar1");
+		controlador.agregarReclamo(1, "10", "2", "DNI30012288", "2", "nose es para probar");
 		Long num2 = controlador.reclamoRepository.count();
 		if (num < num2) {
 			System.out.println("se guardo un reclamo");
 		} else {
 			System.out.println("no hubo cambios en la cantidad de reclamos");
 		}
-		/*
-		// reclamos por estado --------------------------------------------------------------
-		System.out.println(controlador.reclamosPorEstado(Estado.nuevo));
-		
-		// agregarImagenAReclamo-------------------------------------------------------------
-		controlador.agregarImagenAReclamo(1, "i.imgur.com/NyBxg4H.jpeg", "jpeg");
-		
-		// cambiarEstado---------------------------------------------------------------------
-		controlador.cambiarEstado(1, Estado.enProceso);
-		
 		*/
 
+
+		
+		// reclamos por estado --------------------------------------------------------------
+		//System.out.println(controlador.reclamosPorEstado(Estado.nuevo));
+		
+		// agregarImagenAReclamo-------------------------------------------------------------
+		//controlador.agregarImagenAReclamo(2, "i.imgur.com/NyBxg4H.jpeg", "jpeg");
+		
+		// cambiarEstado---------------------------------------------------------------------
+		//controlador.cambiarEstado(1, Estado.enProceso);
+		
+		
+
 	}
-	////// ver el comentario de edificio.java
-	////// buscar unidad es por sus caracteristicas pero buscar edificio es por codigo ??
-	////// sacar a algun duenio de la base de datos para poder borrar personas
-	////// reclamos por unidada ######################################
-	////// puse en public el buscar unidad
+
 }

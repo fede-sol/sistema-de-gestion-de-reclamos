@@ -203,11 +203,28 @@ public class Controlador {
 	public void agregarReclamo(int codigo, String piso, String numero, String documento, String ubicacion,
 			String descripcion) throws EdificioException, UnidadException, PersonaException {
 		Edificio edificio = buscarEdificio(codigo);
-		if (edificio.getUnidades().contains(buscarUnidad(codigo, piso, numero))) {
-			if ((buscarUnidad(codigo, piso, numero).getInquilinos().contains(buscarPersona(documento)))
-					|| (buscarUnidad(codigo, piso, numero).getDuenios().contains(buscarPersona(documento)))) {
-				Reclamo reclamo = new Reclamo(buscarPersona(documento), edificio, ubicacion, descripcion,
-						buscarUnidad(codigo, piso, numero));
+		Unidad unidad = buscarUnidad(codigo, piso, numero);
+		boolean estaEnEdificio = false;
+		for (Unidad elemento : edificio.getUnidades()) {
+			if(elemento.getId() == unidad.getId()){
+				estaEnEdificio = true;
+			}
+		}
+		boolean personaRelacionada = false;
+		if (estaEnEdificio) {
+			for (Persona pInquilino : unidad.getInquilinos()) {
+				if(pInquilino.getDocumento().equals(documento)){
+					personaRelacionada = true;
+				}
+			}
+			for (Persona pDuenio : unidad.getDuenios()) {
+				if(pDuenio.getDocumento().equals(documento)){
+					
+					personaRelacionada = true;
+				}
+			}
+			if (personaRelacionada) {
+				Reclamo reclamo = new Reclamo(buscarPersona(documento), edificio, ubicacion, descripcion,buscarUnidad(codigo, piso, numero));
 				reclamoRepository.save(reclamo);
 			} else {
 				throw new UnidadException("la persona no es duenio y/o inquilino");
@@ -249,7 +266,7 @@ public class Controlador {
 		reclamoRepository.save(reclamo);
 	}
 
-	// DONE (JPA Repository) - Internal
+	
 	private Edificio buscarEdificio(int codigo) throws EdificioException {
 		Optional<Edificio> edificio = edificioRepository.findById(codigo);
 
@@ -259,7 +276,7 @@ public class Controlador {
 			throw new EdificioException("No existe el edificio");
 	}
 
-	// DONE (JPA Repository) - Internal
+	// lo hicimos publico para poder usarlo para hacer pruebas en el main y demostrar el funcionamiento de otros metodos
 	public Unidad buscarUnidad(int codigo, String piso, String numero) throws UnidadException {
 		Optional<Unidad> unidad = unidadRepository.findByEdificioCodigoAndPisoAndNumero(codigo, piso, numero);
 
@@ -269,8 +286,8 @@ public class Controlador {
 			throw new UnidadException("No existe la unidad");
 	}
 
-	// DONE (JPA Repository) - Internal
-	public Persona buscarPersona(String documento) throws PersonaException { //////////////$$$$$$$$$$$$$$$$$$ private
+	// lo hicimos publico para poder usarlo para hacer pruebas en el main y demostrar el funcionamiento de otros metodos
+	public Persona buscarPersona(String documento) throws PersonaException { 
 		Optional<Persona> persona = personaRepository.findById(documento);
 
 		if (persona.isPresent())
@@ -279,7 +296,7 @@ public class Controlador {
 			throw new PersonaException("No existe la persona");
 	}
 
-	// DONE (JPA Repository) - Internal
+	
 	private Reclamo buscarReclamo(int numero) throws ReclamoException {
 		Optional<Reclamo> reclamo = reclamoRepository.findById(numero);
 
