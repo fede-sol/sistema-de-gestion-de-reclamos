@@ -77,10 +77,6 @@ public class Controlador {
 		Set<Persona> habitantes = edificio.habitantes();
 		for (Persona persona : habitantes)
 			resultado.add(persona.toView());
-
-		if (resultado.isEmpty())
-			return null;
-
 		return resultado;
 	}
 
@@ -184,14 +180,9 @@ public class Controlador {
 	}
 
 	public List<ReclamoView> reclamosPorUnidad(int codigo, String piso, String numero) {
-		Edificio edificio = edificioRepository.findById(codigo).get();
-		List<Unidad> unidades = edificio.getUnidades();
-		Unidad unidad = new Unidad();
-		for (Unidad elemento : unidades) {
-			if (elemento.getPiso() == piso) {
-				unidad = elemento;
-			}
-		}
+
+		Unidad unidad = unidadRepository.findByEdificioCodigoAndPisoAndNumero(codigo,piso,numero).get();
+		
 		List<Reclamo> reclamos = reclamoRepository.findByUnidad_Id(unidad.getId());
 		List<ReclamoView> reclamosV = new ArrayList<>();
 		for (Reclamo elemento : reclamos) {
@@ -209,14 +200,14 @@ public class Controlador {
 		return reclamos;
 	}
 
-	public void agregarReclamo(int codigo, String piso, String numeroEdificio, String documento, String ubicacion,
+	public void agregarReclamo(int codigo, String piso, String numero, String documento, String ubicacion,
 			String descripcion) throws EdificioException, UnidadException, PersonaException {
 		Edificio edificio = buscarEdificio(codigo);
-		if (edificio.getUnidades().contains(buscarUnidad(codigo, piso, numeroEdificio))) {
-			if ((buscarUnidad(codigo, piso, numeroEdificio).getInquilinos().contains(buscarPersona(documento)))
-					|| (buscarUnidad(codigo, piso, numeroEdificio).getDuenios().contains(buscarPersona(documento)))) {
+		if (edificio.getUnidades().contains(buscarUnidad(codigo, piso, numero))) {
+			if ((buscarUnidad(codigo, piso, numero).getInquilinos().contains(buscarPersona(documento)))
+					|| (buscarUnidad(codigo, piso, numero).getDuenios().contains(buscarPersona(documento)))) {
 				Reclamo reclamo = new Reclamo(buscarPersona(documento), edificio, ubicacion, descripcion,
-						buscarUnidad(codigo, piso, numeroEdificio));
+						buscarUnidad(codigo, piso, numero));
 				reclamoRepository.save(reclamo);
 			} else {
 				throw new UnidadException("la persona no es duenio y/o inquilino");
@@ -269,7 +260,7 @@ public class Controlador {
 	}
 
 	// DONE (JPA Repository) - Internal
-	private Unidad buscarUnidad(int codigo, String piso, String numero) throws UnidadException {
+	public Unidad buscarUnidad(int codigo, String piso, String numero) throws UnidadException {
 		Optional<Unidad> unidad = unidadRepository.findByEdificioCodigoAndPisoAndNumero(codigo, piso, numero);
 
 		if (unidad.isPresent())

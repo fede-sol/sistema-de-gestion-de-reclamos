@@ -80,15 +80,17 @@ public class Edificio {
 	}
 
 	public Set<Persona> habitantes() {
+		
 		Set<Persona> resultado = new HashSet<Persona>();
 		for (Unidad unidad : unidades) {
 			if (unidad.estaHabitado()) {
 				List<Persona> inquilinos = unidad.getInquilinos();
-				if (inquilinos.size() > 0)
-					for (Persona p : inquilinos)
+				if (inquilinos.size() > 0){
+					for (Persona p : inquilinos){
 						resultado.add(p);
-				else {
-					List<Persona> duenios = unidad.getDuenios();
+					}
+				}else {
+					List<Persona> duenios = unidad.getDuenios();  /////// duenios no son necesariamente habitantes
 					for (Persona p : duenios)
 						resultado.add(p);
 				}
