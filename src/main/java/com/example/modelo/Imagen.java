@@ -1,14 +1,12 @@
 package com.example.modelo;
 
 import com.example.views.ImagenView;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,7 +19,7 @@ public class Imagen {
 	@Column(name = "path")
 	private String direccion;
 	private String tipo;
-	@JoinColumn(name="idreclamo")
+	@JoinColumn(name = "idreclamo")
 	@Column(nullable = true)
 	private int idreclamo;
 

@@ -2,6 +2,7 @@ package com.example.modelo;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Set;
 
 import com.example.views.EdificioView;
@@ -15,7 +16,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="edificios")
+@Table(name = "edificios")
 public class Edificio {
 
 	@Id
@@ -23,39 +24,36 @@ public class Edificio {
 	private int codigo;
 	private String nombre;
 	private String direccion;
-	@OneToMany(mappedBy = "edificio",fetch = FetchType.EAGER)
+
+	@OneToMany(mappedBy = "edificio", fetch = FetchType.EAGER)
 	private List<Unidad> unidades;
 
-
-	public Edificio(){
-
+	public Edificio() {
 	}
 
 	public Edificio(int codigo, String nombre, String direccion) {
 		this.codigo = codigo;
 		this.nombre = nombre;
 		this.direccion = direccion;
-		//unidades = new ArrayList<Unidad>();
+		unidades = new ArrayList<Unidad>();
 	}
 
 	public void agregarUnidad(Unidad unidad) {
 		unidades.add(unidad);
 	}
 
-	public Set<Persona> habilitados(){
+	public Set<Persona> habilitados() {
 		Set<Persona> habilitados = new HashSet<Persona>();
-		for(Unidad unidad : unidades) {
+		for (Unidad unidad : unidades) {
 			List<Persona> duenios = unidad.getDuenios();
-			for(Persona p : duenios)
+			for (Persona p : duenios)
 				habilitados.add(p);
 			List<Persona> inquilinos = unidad.getInquilinos();
-			for(Persona p : inquilinos)
+			for (Persona p : inquilinos)
 				habilitados.add(p);
 		}
 		return habilitados;
 	}
-
-
 
 	public int getCodigo() {
 		return codigo;
@@ -75,7 +73,7 @@ public class Edificio {
 
 	public Set<Persona> duenios() {
 		Set<Persona> resultado = new HashSet<Persona>();
-		for(Unidad unidad : unidades) {
+		for (Unidad unidad : unidades) {
 			resultado.addAll(unidad.getDuenios());
 		}
 		return resultado;
@@ -83,15 +81,15 @@ public class Edificio {
 
 	public Set<Persona> habitantes() {
 		Set<Persona> resultado = new HashSet<Persona>();
-		for(Unidad unidad : unidades) {
-			if(unidad.estaHabitado()) {
+		for (Unidad unidad : unidades) {
+			if (unidad.estaHabitado()) {
 				List<Persona> inquilinos = unidad.getInquilinos();
-				if(inquilinos.size() > 0)
-					for(Persona p : inquilinos)
+				if (inquilinos.size() > 0)
+					for (Persona p : inquilinos)
 						resultado.add(p);
 				else {
 					List<Persona> duenios = unidad.getDuenios();
-					for(Persona p : duenios)
+					for (Persona p : duenios)
 						resultado.add(p);
 				}
 			}
@@ -99,10 +97,7 @@ public class Edificio {
 		return resultado;
 	}
 
-
 	public EdificioView toView() {
 		return new EdificioView(codigo, nombre, direccion);
 	}
-
-
 }

@@ -1,13 +1,10 @@
 package com.example.modelo;
 
-
 import java.util.ArrayList;
 import java.util.List;
-
 import com.example.exceptions.UnidadException;
 import com.example.views.EdificioView;
 import com.example.views.UnidadView;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -16,42 +13,32 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="unidades")
+@Table(name = "unidades")
 public class Unidad {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="identificador")
+	@Column(name = "identificador")
 	private int id;
 	private String piso;
 	private String numero;
 	private char habitado;
 	@ManyToOne
-	@JoinColumn(name="codigoedificio")
+	@JoinColumn(name = "codigoedificio")
 	private Edificio edificio;
 	@OneToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-        name = "duenios",
-		joinColumns = @JoinColumn( name="identificador"),
-        inverseJoinColumns = @JoinColumn(name = "documento")
-    )
-    private List<Persona> duenios;
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-        name = "inquilinos",
-		joinColumns = @JoinColumn( name="identificador"),
-        inverseJoinColumns = @JoinColumn(name = "documento")
-    )
-    private List<Persona> inquilinos;
+	@JoinTable(name = "duenios", joinColumns = @JoinColumn(name = "identificador"), inverseJoinColumns = @JoinColumn(name = "documento"))
+	private List<Persona> duenios;
+	@OneToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "inquilinos", joinColumns = @JoinColumn(name = "identificador"), inverseJoinColumns = @JoinColumn(name = "documento"))
+	private List<Persona> inquilinos;
 
-	public Unidad(){
-
+	public Unidad() {
 	}
 
 	public Unidad(int id, String piso, String numero, Edificio edificio) {
@@ -74,12 +61,11 @@ public class Unidad {
 	}
 
 	public void alquilar(Persona inquilino) throws UnidadException {
-		if(!this.estaHabitado()) {
+		if (!this.estaHabitado()) {
 			this.habitado = 'S';
 			inquilinos = new ArrayList<Persona>();
 			inquilinos.add(inquilino);
-		}
-		else
+		} else
 			throw new UnidadException("La unidad esta ocupada");
 	}
 
@@ -88,7 +74,7 @@ public class Unidad {
 	}
 
 	public boolean estaHabitado() {
-		return habitado == 'S' ;
+		return habitado == 'S';
 	}
 
 	public void liberar() {
@@ -97,7 +83,7 @@ public class Unidad {
 	}
 
 	public void habitar() throws UnidadException {
-		if(this.estaHabitado())
+		if (this.estaHabitado())
 			throw new UnidadException("La unidad ya esta habitada");
 		else
 			this.habitado = 'S';
@@ -114,7 +100,6 @@ public class Unidad {
 	public String getNumero() {
 		return numero;
 	}
-
 
 	public Edificio getEdificio() {
 		return edificio;
@@ -135,10 +120,9 @@ public class Unidad {
 
 	public void borrarInquilino(String documento) {
 		for (Persona persona : this.inquilinos) {
-			if(persona.getDocumento() == documento){
-			this.inquilinos.remove(persona);
+			if (persona.getDocumento() == documento) {
+				this.inquilinos.remove(persona);
 			}
 		}
-		
 	}
 }

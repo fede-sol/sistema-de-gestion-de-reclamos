@@ -2,11 +2,6 @@ package com.example.views;
 
 import java.util.List;
 
-import com.example.modelo.Edificio;
-import com.example.modelo.Imagen;
-import com.example.modelo.Persona;
-import com.example.modelo.Unidad;
-
 public class ReclamoView {
 
 	private int numero;
@@ -18,7 +13,8 @@ public class ReclamoView {
 	private Estado estado;
 	private List<ImagenView> imagenes;
 
-	public ReclamoView() {}
+	public ReclamoView() {
+	}
 
 	public ReclamoView(int numero, PersonaView usuario, EdificioView edificio, String ubicacion, String descripcion,
 			UnidadView unidad, Estado estado, List<ImagenView> imagenes) {
@@ -73,7 +69,8 @@ public class ReclamoView {
 	}
 
 	public String toString() {
-		return numero + " " + usuario + " " + edificio + " " + ubicacion + " " + descripcion + " " + unidad + " " + estado + " " + imagenes;
+		return numero + " " + usuario + " " + edificio + " " + ubicacion + " " +
+				descripcion + " " + unidad + " " + estado + " " + imagenes;
 	}
 
 }

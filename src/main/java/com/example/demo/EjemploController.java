@@ -1,7 +1,7 @@
+/*
 package com.example.demo;
 
-
-import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 
@@ -12,7 +12,7 @@ import java.util.Map;
 public class EjemploController {
     private final JdbcTemplate jdbcTemplate;
 
-    @Autowired 
+    //@Autowired 
     public EjemploController(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
@@ -25,12 +25,11 @@ public class EjemploController {
         for (Map<String, Object> fila : resultados) {
             // Procesa cada fila
             System.out.println("Código: " + fila.get("codigo") +
-                               ", Nombre: " + fila.get("nombre") +
-                               ", Dirección: " + fila.get("direccion"));
+                    ", Nombre: " + fila.get("nombre") +
+                    ", Dirección: " + fila.get("direccion"));
         }
 
         return resultados;
     }
 }
-
-
+*/

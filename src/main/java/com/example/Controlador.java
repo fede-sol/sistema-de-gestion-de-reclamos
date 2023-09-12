@@ -4,13 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-
-import javax.swing.text.html.Option;
-
+//import javax.swing.text.html.Option;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
-
 import com.example.exceptions.EdificioException;
 import com.example.exceptions.PersonaException;
 import com.example.exceptions.ReclamoException;
@@ -25,7 +21,6 @@ import com.example.modelo.repository.ImagenRepository;
 import com.example.modelo.repository.PersonaRepository;
 import com.example.modelo.repository.ReclamoRepository;
 import com.example.modelo.repository.UnidadRepository;
-import com.example.views.EdificioView;
 import com.example.views.Estado;
 import com.example.views.PersonaView;
 import com.example.views.ReclamoView;
@@ -48,10 +43,6 @@ public class Controlador {
 
 	@Autowired
 	UnidadRepository unidadRepository;
-
-
-	// Fede
-	// -----------------------------------------------------------------------------
 
 	public List<UnidadView> getUnidadesPorEdificio(int codigo) throws EdificioException {
 		List<UnidadView> resultado = new ArrayList<UnidadView>();
@@ -111,16 +102,11 @@ public class Controlador {
 		return resultado;
 	}
 
-	// Igna
-	// -----------------------------------------------------------------------------
-
 	public void transferirUnidad(int codigo, String piso, String numero, String documento)
 			throws UnidadException, PersonaException {
 		Unidad unidad = buscarUnidad(codigo, piso, numero);
 		Persona persona = buscarPersona(documento);
 		unidad.transferir(persona);
-
-		// actualizar la unidad con el nuevo dueño
 		unidadRepository.save(unidad);
 	}
 
@@ -129,8 +115,6 @@ public class Controlador {
 		Unidad unidad = buscarUnidad(codigo, piso, numero);
 		Persona persona = buscarPersona(documento);
 		unidad.agregarDuenio(persona);
-
-		// actualizar la unidad con el dueño agregado
 		unidadRepository.save(unidad);
 	}
 
@@ -139,8 +123,6 @@ public class Controlador {
 		Unidad unidad = buscarUnidad(codigo, piso, numero);
 		Persona persona = buscarPersona(documento);
 		unidad.alquilar(persona);
-
-		// actualizar la unidad con el nuevo inquilino
 		unidadRepository.save(unidad);
 	}
 
@@ -149,63 +131,49 @@ public class Controlador {
 		Unidad unidad = buscarUnidad(codigo, piso, numero);
 		Persona persona = buscarPersona(documento);
 		unidad.agregarInquilino(persona);
-
-		// actualizar la unidad con el inquilino agregado
 		unidadRepository.save(unidad);
 	}
 
 	public void liberarUnidad(int codigo, String piso, String numero) throws UnidadException {
 		Unidad unidad = buscarUnidad(codigo, piso, numero);
 		unidad.liberar();
-
-		// actualizar la unidad eliminando los inquilinos
 		unidadRepository.save(unidad);
 	}
 
 	public void habitarUnidad(int codigo, String piso, String numero) throws UnidadException {
 		Unidad unidad = buscarUnidad(codigo, piso, numero);
 		unidad.habitar();
-
-		// actualizar la unidad (habitada)
 		unidadRepository.save(unidad);
 	}
-
-	// Santi
-	// ------------------------------------------------------------------------------
 
 	public void agregarPersona(String documento, String nombre, String mail, String contrasenia) {
 		Persona persona = new Persona(documento, nombre, mail, contrasenia);
 		personaRepository.save(persona);
-		// guardar el objeto
 	}
-	
-	public void eliminarPersona(String documento) throws PersonaException { 
-		if(!unidadRepository.findAllByDueniosDocumento(documento).isEmpty()){
+
+	public void eliminarPersona(String documento) throws PersonaException {
+		if (!unidadRepository.findAllByDueniosDocumento(documento).isEmpty()) {
 			throw new PersonaException("la persona es un duenio");
-		}else{
-			///buscar sus reclamos
+		} else {
 			List<Reclamo> reclamos = reclamoRepository.findAllByUsuario_Documento(documento);
-			for(Reclamo elemento : reclamos){
+			for (Reclamo elemento : reclamos) {
 				for (Imagen foto : elemento.getImagenes()) {
 					imagenRepository.delete(imagenRepository.findById(foto.getNumero()).get());
 				}
 				elemento.borrarImagenes();
 				reclamoRepository.save(elemento);
 				reclamoRepository.delete(elemento);
-				
 			}
-			//buscar si es inquilino
 			List<Unidad> unidades = unidadRepository.findAllByInquilinosDocumento(documento);
-			for(Unidad elemento : unidades){
+			for (Unidad elemento : unidades) {
 				elemento.borrarInquilino(documento);
 				unidadRepository.save(elemento);
 			}
 			personaRepository.delete(buscarPersona(documento));
 		}
-		//eliminar el objeto
 	}
- 
-	public List<ReclamoView> reclamosPorEdificio(int codigo)throws EdificioException{
+
+	public List<ReclamoView> reclamosPorEdificio(int codigo) throws EdificioException {
 		Edificio edificio = edificioRepository.findById(codigo).get();
 		List<Reclamo> reclamos = reclamoRepository.findByEdificio_Codigo(edificio.getCodigo());
 		List<ReclamoView> reclamos2 = new ArrayList<ReclamoView>();
@@ -214,7 +182,7 @@ public class Controlador {
 		}
 		return reclamos2;
 	}
-	
+
 	public List<ReclamoView> reclamosPorUnidad(int codigo, String piso, String numero) {
 		Edificio edificio = edificioRepository.findById(codigo).get();
 		List<Unidad> unidades = edificio.getUnidades();
@@ -224,7 +192,7 @@ public class Controlador {
 				unidad = elemento;
 			}
 		}
-		List<Reclamo> reclamos = reclamoRepository.findByUnidad_Id(unidad.getId()); 
+		List<Reclamo> reclamos = reclamoRepository.findByUnidad_Id(unidad.getId());
 		List<ReclamoView> reclamosV = new ArrayList<>();
 		for (Reclamo elemento : reclamos) {
 			reclamosV.add(elemento.toView());
@@ -240,22 +208,23 @@ public class Controlador {
 		}
 		return reclamos;
 	}
-	
-	public void agregarReclamo(int codigo, String piso, String numeroEdificio, String documento, String ubicacion, String descripcion) throws EdificioException, UnidadException, PersonaException {
+
+	public void agregarReclamo(int codigo, String piso, String numeroEdificio, String documento, String ubicacion,
+			String descripcion) throws EdificioException, UnidadException, PersonaException {
 		Edificio edificio = buscarEdificio(codigo);
-		if(edificio.getUnidades().contains(buscarUnidad(codigo, piso, numeroEdificio))){
-			if((buscarUnidad(codigo, piso, numeroEdificio).getInquilinos().contains(buscarPersona(documento))) || (buscarUnidad(codigo, piso, numeroEdificio).getDuenios().contains(buscarPersona(documento)))){
-				Reclamo reclamo = new Reclamo(buscarPersona(documento), edificio, ubicacion, descripcion, buscarUnidad(codigo, piso, numeroEdificio));
+		if (edificio.getUnidades().contains(buscarUnidad(codigo, piso, numeroEdificio))) {
+			if ((buscarUnidad(codigo, piso, numeroEdificio).getInquilinos().contains(buscarPersona(documento)))
+					|| (buscarUnidad(codigo, piso, numeroEdificio).getDuenios().contains(buscarPersona(documento)))) {
+				Reclamo reclamo = new Reclamo(buscarPersona(documento), edificio, ubicacion, descripcion,
+						buscarUnidad(codigo, piso, numeroEdificio));
 				reclamoRepository.save(reclamo);
-			}else{
+			} else {
 				throw new UnidadException("la persona no es duenio y/o inquilino");
 			}
-		}else{
+		} else {
 			throw new EdificioException("la unidad no esta en el edificio");
 		}
 	}
-
-	// función extra (filtrar reclamos por estado -- enum) ---------------- NO
 
 	public List<ReclamoView> reclamosPorEstado(Estado estado) {
 		List<ReclamoView> resultado = new ArrayList<ReclamoView>();
@@ -264,9 +233,6 @@ public class Controlador {
 			resultado.add(reclamo.toView());
 		return resultado;
 	}
-
-	// Juani
-	// ------------------------------------------------------------------------------
 
 	public List<ReclamoView> reclamosPorPersona(String documento) throws PersonaException {
 		List<ReclamoView> reclamos = new ArrayList<ReclamoView>();

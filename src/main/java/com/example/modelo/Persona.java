@@ -3,27 +3,22 @@ package com.example.modelo;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-
 import jakarta.persistence.Table;
-
-
 import com.example.views.PersonaView;
 
 @Entity
-@Table(name="personas")
+@Table(name = "personas")
 public class Persona {
 
 	@Id
-	@Column(name="documento",length = 20) //RECORDATORIO PONER EL LARGO DEL VARCHAR DE LA BD
+	@Column(name = "documento", length = 20) //RECORDATORIO PONER EL LARGO DEL VARCHAR DE LA BD
 	private String documento;
 	private String nombre;
 	private String mail;
-	@Column(name="contrasenia")
+	@Column(name = "contrasenia")
 	private String password;
 
-
-	public Persona(){
-
+	public Persona() {
 	}
 
 	public Persona(String documento, String nombre, String mail, String password) {
@@ -44,7 +39,6 @@ public class Persona {
 	public String getNombre() {
 		return nombre;
 	}
-
 
 	public String getMail() {
 		return mail;
