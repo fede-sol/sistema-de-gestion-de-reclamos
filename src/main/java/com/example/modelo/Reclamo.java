@@ -22,34 +22,33 @@ import com.example.views.ImagenView;
 import com.example.views.PersonaView;
 import com.example.views.ReclamoView;
 
-
 @Entity
-@Table(name="reclamos")
+@Table(name = "reclamos")
 public class Reclamo {
-
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="idreclamo")
+	@Column(name = "idreclamo")
 	private int numero;
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="documento")
+	@JoinColumn(name = "documento")
 	private Persona usuario;
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="codigo")
+	@JoinColumn(name = "codigo")
 	private Edificio edificio;
 	private String ubicacion;
 	private String descripcion;
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="identificador")
+	@JoinColumn(name = "identificador")
 	private Unidad unidad;
 	@Enumerated(EnumType.STRING)
 	private Estado estado;
 	@OneToMany(fetch = FetchType.EAGER)
-	@JoinColumn(name="numero")
+	@JoinColumn(name = "idreclamo")
 	private List<Imagen> imagenes;
 
-	public Reclamo(){}
+	public Reclamo() {
+	}
 
 	public Reclamo(Persona usuario, Edificio edificio, String ubicacion, String descripcion, Unidad unidad) {
 		this.usuario = usuario;
@@ -61,8 +60,7 @@ public class Reclamo {
 		imagenes = new ArrayList<Imagen>();
 	}
 
-	public void agregarImagen(String direccion, String tipo) {
-		Imagen imagen = new Imagen(direccion, tipo);
+	public void agregarImagen(Imagen imagen) {
 		imagenes.add(imagen);
 	}
 
@@ -98,7 +96,7 @@ public class Reclamo {
 		return estado;
 	}
 
-	public List<Imagen> getImagenes(){
+	public List<Imagen> getImagenes() {
 		return this.imagenes;
 	}
 
@@ -110,10 +108,11 @@ public class Reclamo {
 
 		// change all imagen in imagenes to view
 		List<ImagenView> imagenes = new ArrayList<ImagenView>();
-		for(Imagen imagen : this.imagenes)
+		for (Imagen imagen : this.imagenes)
 			imagenes.add(imagen.toView());
 
-		return new ReclamoView(numero, usuario.toView(), edificio.toView(), ubicacion, descripcion, unidad.toView(), estado, imagenes);
+		return new ReclamoView(numero, usuario.toView(), edificio.toView(), ubicacion, descripcion, unidad.toView(),
+				estado, imagenes);
 	}
 
 }
