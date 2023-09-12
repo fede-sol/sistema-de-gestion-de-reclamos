@@ -208,7 +208,7 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner 
 			System.out.println("no hay reclamos");
 		}
 		*/
-		
+		/*
 		// agregar reclamo ------------------------------------------------------------------
 		Long numero = controlador.reclamoRepository.count();
 		controlador.agregarReclamo(1, "2", "1", "222222", "2", "nose es para probar");
@@ -218,7 +218,7 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner 
 		} else {
 			System.out.println("no hubo cambios en la cantidad de reclamos");
 		}
-		
+		*/
 		/* 
 		// reclamos por estado --------------------------------------------------------------
 		System.out.println(controlador.reclamosPorEstado(Estado.abierto));
@@ -269,17 +269,17 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner 
 		} else {
 			System.out.println("no hay reclamos");
 		}
-		
+		*/
 		// agregar reclamo ------------------------------------------------------------------
 		Long num = controlador.reclamoRepository.count();
-		controlador.agregarReclamo(1, "10", "1", "CI 13230978", "2", "nose es para probar1");
+		controlador.agregarReclamo(1, "10", "1", "CI 13230978", "cocina", "nose es para probar1");
 		Long num2 = controlador.reclamoRepository.count();
 		if (num < num2) {
 			System.out.println("se guardo un reclamo");
 		} else {
 			System.out.println("no hubo cambios en la cantidad de reclamos");
 		}
-		
+		/*
 		// reclamos por estado --------------------------------------------------------------
 		System.out.println(controlador.reclamosPorEstado(Estado.nuevo));
 		
