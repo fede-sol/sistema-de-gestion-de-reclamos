@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.example.controladores.Controlador;
 //import com.example.modelo.Edificio;
 import com.example.modelo.Persona;
 //import com.example.modelo.Reclamo;
@@ -79,7 +81,7 @@ public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner 
 		*/
 
 
-		/* 
+		/*
 		// dueños por unidad ----------------------------------------------------------------
 		List<PersonaView> lista5 = controlador.dueniosPorUnidad(1, "1", "1");
 		if (!lista5.isEmpty()) {

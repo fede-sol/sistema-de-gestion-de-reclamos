@@ -1,4 +1,4 @@
-package com.example;
+package com.example.controladores;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -182,7 +182,7 @@ public class Controlador {
 	public List<ReclamoView> reclamosPorUnidad(int codigo, String piso, String numero) throws UnidadException{
 
 		Unidad unidad = buscarUnidad(codigo,piso,numero);
-		
+
 		List<Reclamo> reclamos = reclamoRepository.findByUnidad_Id(unidad.getId());
 		List<ReclamoView> reclamosV = new ArrayList<>();
 		for (Reclamo elemento : reclamos) {
@@ -219,7 +219,7 @@ public class Controlador {
 			}
 			for (Persona pDuenio : unidad.getDuenios()) {
 				if(pDuenio.getDocumento().equals(documento)){
-					
+
 					personaRelacionada = true;
 				}
 			}
@@ -266,7 +266,7 @@ public class Controlador {
 		reclamoRepository.save(reclamo);
 	}
 
-	
+
 	private Edificio buscarEdificio(int codigo) throws EdificioException {
 		Optional<Edificio> edificio = edificioRepository.findById(codigo);
 
@@ -277,7 +277,7 @@ public class Controlador {
 	}
 
 	// lo hicimos publico para poder usarlo para hacer pruebas en el main y demostrar el funcionamiento de otros metodos
-	public Unidad buscarUnidad(int codigo, String piso, String numero) throws UnidadException {
+	private Unidad buscarUnidad(int codigo, String piso, String numero) throws UnidadException {
 		Optional<Unidad> unidad = unidadRepository.findByEdificioCodigoAndPisoAndNumero(codigo, piso, numero);
 
 		if (unidad.isPresent())
@@ -287,7 +287,7 @@ public class Controlador {
 	}
 
 	// lo hicimos publico para poder usarlo para hacer pruebas en el main y demostrar el funcionamiento de otros metodos
-	public Persona buscarPersona(String documento) throws PersonaException { 
+	private Persona buscarPersona(String documento) throws PersonaException {
 		Optional<Persona> persona = personaRepository.findById(documento);
 
 		if (persona.isPresent())
@@ -296,7 +296,6 @@ public class Controlador {
 			throw new PersonaException("No existe la persona");
 	}
 
-	
 	private Reclamo buscarReclamo(int numero) throws ReclamoException {
 		Optional<Reclamo> reclamo = reclamoRepository.findById(numero);
 
