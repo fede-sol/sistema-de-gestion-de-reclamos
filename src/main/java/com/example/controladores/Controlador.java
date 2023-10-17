@@ -191,19 +191,18 @@ public class Controlador {
 		return reclamosV;
 	}
 
-	public List<ReclamoView> reclamosPorNumero(int numero) {
-		List<Reclamo> resultado = reclamoRepository.findByNumero(numero);
-		List<ReclamoView> reclamos = new ArrayList<>();
-		for (Reclamo elemento : resultado) {
-			reclamos.add(elemento.toView());
-		}
-		return reclamos;
+	public ReclamoView reclamoPorNumero(int numero) throws ReclamoException {
+		Optional<Reclamo> reclamo = reclamoRepository.findByNumero(numero);
+		if (reclamo.isPresent())
+			return reclamo.get().toView();
+		else
+			throw new ReclamoException("No existe el reclamo");
 	}
 
-	public void agregarReclamo(int codigo, String piso, String numero, String documento, String ubicacion,
+	public ReclamoView agregarReclamo(int codigo, int identificador, String documento, String ubicacion,
 			String descripcion) throws EdificioException, UnidadException, PersonaException {
 		Edificio edificio = buscarEdificio(codigo);
-		Unidad unidad = buscarUnidad(codigo, piso, numero);
+		Unidad unidad = buscarUnidad(identificador);
 		boolean estaEnEdificio = false;
 		for (Unidad elemento : edificio.getUnidades()) {
 			if(elemento.getId() == unidad.getId()){
@@ -224,8 +223,9 @@ public class Controlador {
 				}
 			}
 			if (personaRelacionada) {
-				Reclamo reclamo = new Reclamo(buscarPersona(documento), edificio, ubicacion, descripcion,buscarUnidad(codigo, piso, numero));
+				Reclamo reclamo = new Reclamo(buscarPersona(documento), edificio, ubicacion, descripcion,unidad);
 				reclamoRepository.save(reclamo);
+				return reclamo.toView();
 			} else {
 				throw new UnidadException("la persona no es duenio y/o inquilino");
 			}
@@ -279,6 +279,14 @@ public class Controlador {
 	// lo hicimos publico para poder usarlo para hacer pruebas en el main y demostrar el funcionamiento de otros metodos
 	private Unidad buscarUnidad(int codigo, String piso, String numero) throws UnidadException {
 		Optional<Unidad> unidad = unidadRepository.findByEdificioCodigoAndPisoAndNumero(codigo, piso, numero);
+
+		if (unidad.isPresent())
+			return unidad.get();
+		else
+			throw new UnidadException("No existe la unidad");
+	}
+	private Unidad buscarUnidad(int identificador) throws UnidadException {
+		Optional<Unidad> unidad = unidadRepository.findById(identificador);
 
 		if (unidad.isPresent())
 			return unidad.get();
