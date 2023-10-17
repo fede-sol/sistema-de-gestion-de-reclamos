@@ -1,6 +1,6 @@
 package com.example.exceptions;
 
-public class ImagenException extends Exception {
+public class ImagenException extends RuntimeException {
 
 	private static final long serialVersionUID = 6332415080946078382L;
 

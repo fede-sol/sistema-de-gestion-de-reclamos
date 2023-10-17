@@ -1,6 +1,6 @@
 package com.example.exceptions;
 
-public class PersonaException extends Exception {
+public class PersonaException extends RuntimeException {
 
 	private static final long serialVersionUID = -2835873129858130160L;
 

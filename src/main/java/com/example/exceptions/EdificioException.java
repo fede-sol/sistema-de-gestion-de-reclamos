@@ -1,6 +1,6 @@
 package com.example.exceptions;
 
-public class EdificioException extends Exception {
+public class EdificioException extends RuntimeException {
 
 	private static final long serialVersionUID = 9018648492209155948L;
 

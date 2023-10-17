@@ -29,7 +29,7 @@ public class RestControllerUnidad {
             List<PersonaView> lista = controlador.dueniosPorUnidad(1, "1", "1");
             return lista;
         } catch (UnidadException e) {
-            throw new UnidadException("No se pudo obtener los dueños de la unidad");
+            throw e;
         }
 	}
 }
