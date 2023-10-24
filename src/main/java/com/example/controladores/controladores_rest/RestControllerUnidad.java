@@ -32,4 +32,15 @@ public class RestControllerUnidad {
             throw e;
         }
 	}
+
+    @GetMapping("/inquilinos")
+    public List<PersonaView> obtenerInquilinos(){
+
+            try {
+                List<PersonaView> lista = controlador.inquilinosPorUnidad(1, "1", "1");
+                return lista;
+            } catch (UnidadException e) {
+                throw e;
+            }
+        }
 }
