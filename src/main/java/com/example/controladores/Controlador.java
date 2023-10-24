@@ -254,16 +254,17 @@ public class Controlador {
 
 		Reclamo reclamo = buscarReclamo(idreclamo);
 		Imagen imagen = new Imagen(direccion, tipo, idreclamo);
-		imagenRepository.save(imagen);
 		reclamo.agregarImagen(imagen);
+		imagenRepository.save(imagen);
 		reclamoRepository.save(reclamo);
 
 	}
 
-	public void cambiarEstado(int numero, Estado estado) throws ReclamoException {
+	public ReclamoView cambiarEstado(int numero, Estado estado) throws ReclamoException {
 		Reclamo reclamo = buscarReclamo(numero);
 		reclamo.cambiarEstado(estado);
 		reclamoRepository.save(reclamo);
+		return reclamo.toView();
 	}
 
 
