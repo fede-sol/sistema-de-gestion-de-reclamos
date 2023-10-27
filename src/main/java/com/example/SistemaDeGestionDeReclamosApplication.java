@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 import com.example.controladores.Controlador;
 //import com.example.modelo.Edificio;
@@ -17,6 +18,8 @@ import com.example.views.ReclamoView;
 import com.example.views.UnidadView;
 import com.example.views.EdificioView;
 
+@ComponentScan("com.servicios")
+@ComponentScan("com.controladores")
 @SpringBootApplication
 public class SistemaDeGestionDeReclamosApplication implements CommandLineRunner {
 

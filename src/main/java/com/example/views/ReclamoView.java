@@ -68,6 +68,10 @@ public class ReclamoView {
 		this.descripcion = descripcion;
 	}
 
+	public List<ImagenView> getImagenes() {
+		return this.imagenes;
+	}
+
 	public String toString() {
 		return numero + " " + usuario + " " + edificio + " " + ubicacion + " " +
 				descripcion + " " + unidad + " " + estado + " " + imagenes;
