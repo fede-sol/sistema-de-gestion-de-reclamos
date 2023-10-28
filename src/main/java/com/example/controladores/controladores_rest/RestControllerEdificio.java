@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,43 +23,43 @@ public class RestControllerEdificio {
     @Autowired
     Controlador controlador;
 
-    @GetMapping("/unidades")
-    public List<UnidadView> obtenerUnidades() {
+    @GetMapping("/unidades/{codigo}")
+    public List<UnidadView> obtenerUnidades(@PathVariable("codigo") Integer codigo) {
 
         try {
-            List<UnidadView> unidades = controlador.getUnidadesPorEdificio(1);
+            List<UnidadView> unidades = controlador.getUnidadesPorEdificio(codigo);
             return unidades;
         } catch (EdificioException e) {
             throw e;
         }
     }
 
-    @GetMapping("/habilitados")
-    public List<PersonaView> obtenerHabilitados() {
+    @GetMapping("/habilitados/{codigo}")
+    public List<PersonaView> obtenerHabilitados(@PathVariable("codigo") Integer codigo) {
 
         try {
-            List<PersonaView> habilitados = controlador.habilitadosPorEdificio(1);
+            List<PersonaView> habilitados = controlador.habilitadosPorEdificio(codigo);
             return habilitados;
         } catch (EdificioException e) {
             throw e;
         }
     }
 
-    @GetMapping("/duenios")
-    public List<PersonaView> obtenerDuenios() {
+    @GetMapping("/duenios/{codigo}")
+    public List<PersonaView> obtenerDuenios(@PathVariable("codigo") Integer codigo) {
 
         try {
-            List<PersonaView> duenios = controlador.dueniosPorEdificio(1);
+            List<PersonaView> duenios = controlador.dueniosPorEdificio(codigo);
             return duenios;
         } catch (EdificioException e) {
             throw e;
         }
     }
 
-    @GetMapping("/habitantes")
-    public List<PersonaView> obtenerHabitantes() {
+    @GetMapping("/habitantes/{codigo}")
+    public List<PersonaView> obtenerHabitantes(@PathVariable("codigo") Integer codigo) {
         try {
-            List<PersonaView> habitantes = controlador.habitantesPorEdificio(1);
+            List<PersonaView> habitantes = controlador.habitantesPorEdificio(codigo);
             return habitantes;
 
         } catch (EdificioException e) {
@@ -66,10 +67,10 @@ public class RestControllerEdificio {
         }
     }
 
-    @GetMapping("/reclamos")
-    public List<ReclamoView> obtenerReclamos() {
+    @GetMapping("/reclamos/{codigo}")
+    public List<ReclamoView> obtenerReclamos(@PathVariable("codigo") Integer codigo) {
         try {
-            List<ReclamoView> reclamos = controlador.reclamosPorEdificio(1);
+            List<ReclamoView> reclamos = controlador.reclamosPorEdificio(codigo);
             return reclamos;
         } catch (EdificioException e) {
             throw e;
