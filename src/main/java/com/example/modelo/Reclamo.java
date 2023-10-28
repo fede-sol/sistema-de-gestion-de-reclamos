@@ -110,7 +110,9 @@ public class Reclamo {
 		for (Imagen imagen : this.imagenes)
 			imagenes.add(imagen.toView());
 
-		return new ReclamoView(numero, usuario.toView(), edificio.toView(), ubicacion,
-				descripcion, unidad.toView(), estado, imagenes);
+		if(unidad == null)
+			return new ReclamoView(numero, usuario.toView(), edificio.toView(), ubicacion,descripcion, null, estado, imagenes);
+		else
+			return new ReclamoView(numero, usuario.toView(), edificio.toView(), ubicacion,descripcion, unidad.toView(), estado, imagenes);
 	}
 }

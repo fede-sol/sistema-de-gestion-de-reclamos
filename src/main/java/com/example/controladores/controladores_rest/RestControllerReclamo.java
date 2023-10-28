@@ -1,19 +1,12 @@
 package com.example.controladores.controladores_rest;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.AbstractFileResolvingResource;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,11 +16,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import com.example.controladores.Controlador;
 import com.example.exceptions.EdificioException;
 import com.example.exceptions.PersonaException;
@@ -35,12 +25,9 @@ import com.example.exceptions.ReclamoException;
 import com.example.exceptions.UnidadException;
 import com.example.modelo.Reclamo;
 import com.example.views.Estado;
-import com.example.views.ImagenView;
+import com.example.views.PersonaView;
 import com.example.views.ReclamoView;
-import com.servicios.ImgBBService;
 import com.servicios.ManejadorArchivos;
-
-import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
@@ -57,10 +44,18 @@ public class RestControllerReclamo {
 
 
     @GetMapping("/buscar/id/{numero}")
-	public ReclamoView buscarPorNumero(@PathVariable("numero") Integer numero) {
+	public ReclamoView buscarPorNumero(@PathVariable("numero") Integer numero,@RequestParam("documento") String documento) {
         try {
-		    ReclamoView reclamo = controlador.reclamoPorNumero(numero);
-            return reclamo;
+
+            ReclamoView reclamo = controlador.reclamoPorNumero(numero);
+            for (PersonaView persona : controlador.habilitadosPorEdificio(reclamo.getEdificio().getCodigo())) {
+                if(persona.getDocumento().equals(documento)){
+                    return reclamo;
+                }
+            }
+            throw new PersonaException("No tiene permisos para ver este reclamo.");
+
+
         } catch (ReclamoException e) {
             throw e;
         }
@@ -83,18 +78,34 @@ public class RestControllerReclamo {
 
 
     @GetMapping("/buscar/estado/{estado}")
-	public List<ReclamoView> buscarPorEstado(@PathVariable("estado") Estado estado) {
+	public List<ReclamoView> buscarPorEstado(@PathVariable("estado") Estado estado,@RequestParam("documento") String documento) {
 
-		List<ReclamoView> reclamo = controlador.reclamosPorEstado(estado);
-        return reclamo;
+        List<ReclamoView> reclamosFiltrados = new ArrayList<ReclamoView>();
+
+        List<ReclamoView> reclamos = controlador.reclamosPorEstado(estado);
+        for (ReclamoView reclamoView : reclamos) {
+            for (PersonaView persona : controlador.habilitadosPorEdificio(reclamoView.getEdificio().getCodigo())) {
+                if(persona.getDocumento().equals(documento)){
+                    reclamosFiltrados.add(reclamoView);
+                }
+            }
+        }
+
+        return reclamosFiltrados;
 
 	}
 
 
     @PutMapping("/cambiar-estado")
-	public ReclamoView cambiarEstado(@RequestBody Reclamo reclamo) {
+	public ReclamoView cambiarEstado(@RequestParam("numero") Integer numero,@RequestParam("estado") Estado estado,@RequestParam("documento") String documento) {
         try {
-            ReclamoView reclamoActualizado = controlador.cambiarEstado(reclamo.getNumero(), reclamo.getEstado());
+
+            //check si la persona que quiere cambiar el estado es la misma que creo el reclamo
+            ReclamoView reclamo = controlador.reclamoPorNumero(numero);
+            if(!reclamo.getUsuario().getDocumento().equals(documento))
+                throw new ReclamoException("No tiene permisos para cambiar el estado de este reclamo.");
+
+            ReclamoView reclamoActualizado = controlador.cambiarEstado(numero, estado);
             return reclamoActualizado;
         } catch (ReclamoException e) {
             throw e;
@@ -104,7 +115,12 @@ public class RestControllerReclamo {
 
 
     @PostMapping("/cargar-imagen")
-    public String handleFileUpload(@RequestParam("imagen") MultipartFile file,@RequestParam("idReclamo") Integer id) throws IOException {
+    public String handleFileUpload(@RequestParam("imagen") MultipartFile file,@RequestParam("idReclamo") Integer id,@RequestParam("documento") String documento) throws IOException {
+
+        ReclamoView reclamo = controlador.reclamoPorNumero(id);
+        if(!reclamo.getUsuario().getDocumento().equals(documento))
+            throw new ReclamoException("No tiene permisos para agregar imagenes al reclamo.");
+
         if (!file.isEmpty()) {
             try {
                 manejadorArchivos.subirArchivo(file);

@@ -13,12 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.controladores.Controlador;
-import com.example.exceptions.EdificioException;
 import com.example.exceptions.PersonaException;
-import com.example.exceptions.ReclamoException;
-import com.example.exceptions.UnidadException;
 import com.example.modelo.Persona;
-import com.example.modelo.Reclamo;
 import com.example.views.PersonaView;
 import com.example.views.ReclamoView;
 

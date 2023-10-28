@@ -206,6 +206,20 @@ public class Controlador {
 	public ReclamoView agregarReclamo(int codigo, int identificador, String documento, String ubicacion,
 			String descripcion) throws EdificioException, UnidadException, PersonaException {
 		Edificio edificio = buscarEdificio(codigo);
+
+		if(identificador == 0){
+			for (PersonaView persona : habilitadosPorEdificio(codigo)) {
+				if(persona.getDocumento().equals(documento)){
+					Reclamo reclamo = new Reclamo(buscarPersona(documento), edificio, ubicacion, descripcion,null);
+					reclamoRepository.save(reclamo);
+					return reclamo.toView();
+				}
+			}
+
+			throw new PersonaException("la persona no pertenece al edificio");
+		}
+
+
 		Unidad unidad = buscarUnidad(identificador);
 		boolean estaEnEdificio = false;
 		for (Unidad elemento : edificio.getUnidades()) {
