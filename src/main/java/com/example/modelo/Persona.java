@@ -4,7 +4,13 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import com.example.exceptions.ReclamoException;
 import com.example.views.PersonaView;
+import com.example.views.ReclamoView;
 
 @Entity
 @Table(name = "personas")
@@ -51,4 +57,5 @@ public class Persona {
 	public PersonaView toView() {
 		return new PersonaView(documento, nombre);
 	}
+
 }

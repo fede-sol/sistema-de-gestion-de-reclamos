@@ -130,24 +130,27 @@ public class Controlador {
 		unidadRepository.save(unidad);
 	}
 
-	public void liberarUnidad(int codigo, String piso, String numero) throws UnidadException {
+	public UnidadView liberarUnidad(int codigo, String piso, String numero) throws UnidadException {
 		Unidad unidad = buscarUnidad(codigo, piso, numero);
 		unidad.liberar();
 		unidadRepository.save(unidad);
+		return unidad.toView();
 	}
 
-	public void habitarUnidad(int codigo, String piso, String numero) throws UnidadException {
+	public UnidadView habitarUnidad(int codigo, String piso, String numero) throws UnidadException {
 		Unidad unidad = buscarUnidad(codigo, piso, numero);
 		unidad.habitar();
 		unidadRepository.save(unidad);
+		return unidad.toView();
 	}
 
-	public void agregarPersona(String documento, String nombre, String mail, String contrasenia) {
+	public PersonaView agregarPersona(String documento, String nombre, String mail, String contrasenia) {
 		Persona persona = new Persona(documento, nombre, mail, contrasenia);
 		personaRepository.save(persona);
+		return persona.toView();
 	}
 
-	public void eliminarPersona(String documento) throws PersonaException {
+	public String eliminarPersona(String documento) throws PersonaException {
 		if (!unidadRepository.findAllByDueniosDocumento(documento).isEmpty()) {
 			throw new PersonaException("la persona es un duenio");
 		} else {
@@ -157,7 +160,7 @@ public class Controlador {
 					imagenRepository.delete(imagenRepository.findById(foto.getNumero()).get());
 				}
 				elemento.borrarImagenes();
-				reclamoRepository.save(elemento);
+				reclamoRepository.save(elemento);    /// ??????
 				reclamoRepository.delete(elemento);
 			}
 			List<Unidad> unidades = unidadRepository.findAllByInquilinosDocumento(documento);
@@ -166,6 +169,7 @@ public class Controlador {
 				unidadRepository.save(elemento);
 			}
 			personaRepository.delete(buscarPersona(documento));
+			return "Persona eliminada con exito";
 		}
 	}
 
