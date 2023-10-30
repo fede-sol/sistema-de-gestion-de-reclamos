@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.controladores.Controlador;
@@ -26,6 +27,16 @@ public class RestControllerPersona {
 
     @Autowired
 	Controlador controlador;
+
+    @PostMapping("/login")
+    public String login(@RequestParam("documento") String documento, @RequestParam("password") String password) {
+        try {
+            String doc = controlador.login(documento, password);
+            return doc;
+        } catch (PersonaException e) {
+            throw e;
+        }
+    }
 
     @GetMapping("/buscar-reclamos/{dni}")
 	public List<ReclamoView> buscarReclamosPorDni(@PathVariable("dni") String dni ) {

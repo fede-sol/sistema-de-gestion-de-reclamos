@@ -44,6 +44,15 @@ public class Controlador {
 	@Autowired
 	UnidadRepository unidadRepository;
 
+
+	public String login(String documento, String contrasenia) throws PersonaException {
+		Persona persona = buscarPersona(documento);
+		if (persona.getPassword().equals(contrasenia))
+			return persona.getDocumento();
+		else
+			throw new PersonaException("Documento o contraseña incorrecta");
+	}
+
 	public List<UnidadView> getUnidadesPorEdificio(int codigo) throws EdificioException {
 		List<UnidadView> resultado = new ArrayList<UnidadView>();
 		Edificio edificio = buscarEdificio(codigo);

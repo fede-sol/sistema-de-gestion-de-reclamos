@@ -25,7 +25,6 @@ public class RestControllerEdificio {
 
     @GetMapping("/unidades/{codigo}")
     public List<UnidadView> obtenerUnidades(@PathVariable("codigo") Integer codigo) {
-
         try {
             List<UnidadView> unidades = controlador.getUnidadesPorEdificio(codigo);
             return unidades;
