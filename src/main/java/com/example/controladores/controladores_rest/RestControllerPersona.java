@@ -49,9 +49,9 @@ public class RestControllerPersona {
 	}
 
     @PostMapping("/agregar")
-	public PersonaView agregarPersona(@RequestBody Persona persona) {
+	public PersonaView agregarPersona(@RequestParam String documento, @RequestParam String nombre, @RequestParam String mail, @RequestParam String contrasenia ) {
         try {
-            PersonaView personaO = controlador.agregarPersona(persona.getDocumento(), persona.getNombre(), persona.getMail(), persona.getPassword());
+            PersonaView personaO = controlador.agregarPersona(documento, nombre, mail, contrasenia);
             return personaO;
         } catch (PersonaException e) {
             throw e;
