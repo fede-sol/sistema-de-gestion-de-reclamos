@@ -66,8 +66,8 @@ public class RestControllerUnidad {
     }
 
     // agregar duenio unidad
-    @PutMapping("/agregarDueño")
-    public UnidadView agregarDueñoUnidad(@RequestParam int codigo, @RequestParam String piso, @RequestParam String numero, @RequestParam String documento){
+    @PutMapping("/agregarDuenio")
+    public UnidadView agregarDuenioUnidad(@RequestParam int codigo, @RequestParam String piso, @RequestParam String numero, @RequestParam String documento){
 
         try {
             return controlador.agregarDuenioUnidad(codigo, piso, numero, documento);
