@@ -48,6 +48,10 @@ public class ReclamoView {
 		return this.edificio;
 	}
 
+	public UnidadView getUnidad() {
+		return this.unidad;
+	}
+
 	public void setEdificio(EdificioView edificio) {
 		this.edificio = edificio;
 	}
