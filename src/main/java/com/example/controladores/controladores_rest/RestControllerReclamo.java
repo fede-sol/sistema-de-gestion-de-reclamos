@@ -137,17 +137,6 @@ public class RestControllerReclamo {
 
 
 
-    @GetMapping("/imagenes/{nombre}")
-    public void serveImageHandler(HttpServletResponse response,@PathVariable("nombre") String nombre) throws Exception {
 
-        try {
-            InputStream fileInputStream= new FileInputStream("imagenes/"+nombre);
-            response.setContentType(MediaType.IMAGE_JPEG_VALUE);
-            StreamUtils.copy(fileInputStream,response.getOutputStream());
-        } catch(Exception e) {
-            throw e;
-        }
-
-    }
 
 }
