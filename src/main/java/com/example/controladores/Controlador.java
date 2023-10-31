@@ -107,12 +107,13 @@ public class Controlador {
 		return resultado;
 	}
 
-	public void transferirUnidad(int codigo, String piso, String numero, String documento)
+	public UnidadView transferirUnidad(int codigo, String piso, String numero, String documento)
 			throws UnidadException, PersonaException {
 		Unidad unidad = buscarUnidad(codigo, piso, numero);
 		Persona persona = buscarPersona(documento);
 		unidad.transferir(persona);
 		unidadRepository.save(unidad);
+		return unidad.toView();
 	}
 
 	public void agregarDuenioUnidad(int codigo, String piso, String numero, String documento)
