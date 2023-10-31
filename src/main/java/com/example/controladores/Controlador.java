@@ -116,28 +116,31 @@ public class Controlador {
 		return unidad.toView();
 	}
 
-	public void agregarDuenioUnidad(int codigo, String piso, String numero, String documento)
+	public UnidadView agregarDuenioUnidad(int codigo, String piso, String numero, String documento)
 			throws UnidadException, PersonaException {
 		Unidad unidad = buscarUnidad(codigo, piso, numero);
 		Persona persona = buscarPersona(documento);
 		unidad.agregarDuenio(persona);
 		unidadRepository.save(unidad);
+		return unidad.toView();
 	}
 
-	public void alquilarUnidad(int codigo, String piso, String numero, String documento)
+	public UnidadView alquilarUnidad(int codigo, String piso, String numero, String documento)
 			throws UnidadException, PersonaException {
 		Unidad unidad = buscarUnidad(codigo, piso, numero);
 		Persona persona = buscarPersona(documento);
 		unidad.alquilar(persona);
 		unidadRepository.save(unidad);
+		return unidad.toView();
 	}
 
-	public void agregarInquilinoUnidad(int codigo, String piso, String numero, String documento)
+	public UnidadView agregarInquilinoUnidad(int codigo, String piso, String numero, String documento)
 			throws UnidadException, PersonaException {
 		Unidad unidad = buscarUnidad(codigo, piso, numero);
 		Persona persona = buscarPersona(documento);
 		unidad.agregarInquilino(persona);
 		unidadRepository.save(unidad);
+		return unidad.toView();
 	}
 
 	public UnidadView liberarUnidad(int codigo, String piso, String numero) throws UnidadException {
@@ -170,7 +173,7 @@ public class Controlador {
 					imagenRepository.delete(imagenRepository.findById(foto.getNumero()).get());
 				}
 				elemento.borrarImagenes();
-				reclamoRepository.save(elemento);    /// ??????
+				reclamoRepository.save(elemento);
 				reclamoRepository.delete(elemento);
 			}
 			List<Unidad> unidades = unidadRepository.findAllByInquilinosDocumento(documento);

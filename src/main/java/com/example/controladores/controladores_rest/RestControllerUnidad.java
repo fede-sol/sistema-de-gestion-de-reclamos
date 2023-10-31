@@ -60,7 +60,6 @@ public class RestControllerUnidad {
 
         try {
             return controlador.transferirUnidad(codigo, piso, numero, documento);
-
         } catch (UnidadException e) {
             throw e;
         }
@@ -68,11 +67,10 @@ public class RestControllerUnidad {
 
     // agregar duenio unidad
     @PutMapping("/agregarDueño")
-    public String agregarDueñoUnidad(@RequestParam int codigo, @RequestParam String piso, @RequestParam String numero, @RequestParam String documento){
+    public UnidadView agregarDueñoUnidad(@RequestParam int codigo, @RequestParam String piso, @RequestParam String numero, @RequestParam String documento){
 
         try {
-            controlador.agregarDuenioUnidad(codigo, piso, numero, documento);
-            return "Dueño Agregado a la Unidad con Exito";
+            return controlador.agregarDuenioUnidad(codigo, piso, numero, documento);
         } catch (UnidadException e) {
             throw e;
         }
@@ -80,11 +78,10 @@ public class RestControllerUnidad {
 
     // alquilar unidad
     @PutMapping("/alquilar")
-    public String alquilarUnidad(@RequestParam int codigo, @RequestParam String piso, @RequestParam String numero, @RequestParam String documento){
+    public UnidadView alquilarUnidad(@RequestParam int codigo, @RequestParam String piso, @RequestParam String numero, @RequestParam String documento){
 
         try {
-            controlador.alquilarUnidad(codigo, piso, numero, documento);
-            return "Alquiler realizado con exito";
+            return controlador.alquilarUnidad(codigo, piso, numero, documento);
         } catch (UnidadException e) {
             throw e;
         }
@@ -92,11 +89,10 @@ public class RestControllerUnidad {
 
     // agregar inquilino unidad
     @PutMapping("/agregarInquilino")
-    public String agregarInquilinoUnidad(@RequestParam int codigo, @RequestParam String piso, @RequestParam String numero, @RequestParam String documento){
+    public UnidadView agregarInquilinoUnidad(@RequestParam int codigo, @RequestParam String piso, @RequestParam String numero, @RequestParam String documento){
 
         try {
-            controlador.agregarInquilinoUnidad(codigo, piso, numero, documento);
-            return "Inquilino Agregado a la Unidad con Exito";
+            return controlador.agregarInquilinoUnidad(codigo, piso, numero, documento);
         } catch (UnidadException e) {
             throw e;
         }
@@ -106,7 +102,6 @@ public class RestControllerUnidad {
 	public UnidadView liberarUnidad(@RequestParam int codigo, @RequestParam String piso, @RequestParam String numero) {
         try {
             return controlador.liberarUnidad(codigo, piso, numero);
-
         } catch (UnidadException e) {
             throw e;
         }
