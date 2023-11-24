@@ -23,7 +23,7 @@ public class Persona {
 	private String mail;
 	@Column(name = "contrasenia")
 	private String password;
-
+	private boolean admin;
 	public Persona() {
 	}
 
@@ -32,6 +32,7 @@ public class Persona {
 		this.nombre = nombre;
 		this.mail = mail;
 		this.password = password;
+		this.admin = false;
 	}
 
 	public void cambiarPassword(String password) {
@@ -48,6 +49,9 @@ public class Persona {
 
 	public String getMail() {
 		return mail;
+	}
+	public boolean isAdmin() {
+		return admin;
 	}
 
 	public String getPassword() {

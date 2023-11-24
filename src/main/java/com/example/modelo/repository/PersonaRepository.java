@@ -7,4 +7,5 @@ import com.example.modelo.Persona;
 public interface PersonaRepository extends JpaRepository<Persona, String> {
 
     public Optional<Persona> findByNombre(String nombre);
+    public Optional<Persona> findByMail(String mail);
 }

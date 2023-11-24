@@ -45,12 +45,36 @@ public class Controlador {
 	UnidadRepository unidadRepository;
 
 
-	public String login(String documento, String contrasenia) throws PersonaException {
-		Persona persona = buscarPersona(documento);
-		if (persona.getPassword().equals(contrasenia))
-			return persona.getDocumento();
-		else
-			throw new PersonaException("Documento o contraseña incorrecta");
+	public String login(String mail, String contrasenia) throws PersonaException {
+
+		Optional<Persona> persona = personaRepository.findByMail(mail);
+
+		if (persona.isPresent()){
+			if (persona.get().getPassword().equals(contrasenia))
+				return persona.get().getDocumento();
+			else
+				throw new PersonaException("Mail o contraseña incorrecta");
+		}else
+			throw new PersonaException("No existe el usuario");
+
+	}
+
+	public String adminLogin(String mail, String contrasenia) throws PersonaException {
+
+		Optional<Persona> persona = personaRepository.findByMail(mail);
+
+		if (persona.isPresent()){
+			if (persona.get().getPassword().equals(contrasenia)){
+				if(persona.get().isAdmin())
+					return persona.get().getDocumento();
+				else
+					throw new PersonaException("El usuario no es admin");
+			}else{
+				throw new PersonaException("Mail o contraseña incorrecta");
+			}
+		}else
+			throw new PersonaException("No existe el usuario");
+
 	}
 
 	public List<UnidadView> getUnidadesPorEdificio(int codigo) throws EdificioException {

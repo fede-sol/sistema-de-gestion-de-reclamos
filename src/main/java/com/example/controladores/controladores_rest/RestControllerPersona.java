@@ -28,10 +28,19 @@ public class RestControllerPersona {
     @Autowired
 	Controlador controlador;
 
-    @PostMapping("/login")
-    public String login(@RequestParam("documento") String documento, @RequestParam("password") String password) {
+    @PostMapping("/admin/login")
+    public String adminLogin(@RequestParam("mail") String mail, @RequestParam("password") String password) {
         try {
-            String doc = controlador.login(documento, password);
+            String doc = controlador.adminLogin(mail, password);
+            return doc;
+        } catch (PersonaException e) {
+            throw e;
+        }
+    }
+    @PostMapping("/login")
+    public String login(@RequestParam("mail") String mail, @RequestParam("password") String password) {
+        try {
+            String doc = controlador.login(mail, password);
             return doc;
         } catch (PersonaException e) {
             throw e;
