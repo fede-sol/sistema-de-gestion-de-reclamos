@@ -219,6 +219,14 @@ public class Controlador {
 		}
 	}
 
+	public List<ReclamoView> getReclamos() {
+		List<ReclamoView> resultado = new ArrayList<ReclamoView>();
+		List<Reclamo> reclamos = reclamoRepository.findAll();
+		for (Reclamo reclamo : reclamos)
+			resultado.add(reclamo.toView());
+		return resultado;
+	}
+
 	public List<ReclamoView> reclamosPorEdificio(int codigo) throws EdificioException {
 		Edificio edificio = buscarEdificio(codigo);
 		List<Reclamo> reclamos = reclamoRepository.findByEdificio_Codigo(edificio.getCodigo());

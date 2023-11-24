@@ -42,6 +42,15 @@ public class RestControllerReclamo {
     ManejadorArchivos manejadorArchivos;
 
 
+    @GetMapping("/get")
+    public List<ReclamoView> getReclamos() {
+        try {
+            List<ReclamoView> reclamos = controlador.getReclamos();
+            return reclamos;
+        } catch (ReclamoException e) {
+            throw e;
+        }
+    }
 
     @GetMapping("/buscar/id/{numero}")
 	public ReclamoView buscarPorNumero(@PathVariable("numero") Integer numero,@RequestParam("documento") String documento) {
