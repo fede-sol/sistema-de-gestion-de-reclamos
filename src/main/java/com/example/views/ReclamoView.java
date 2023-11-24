@@ -68,6 +68,10 @@ public class ReclamoView {
 		return this.descripcion;
 	}
 
+	public Estado getEstado() {
+		return this.estado;
+	}
+
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
