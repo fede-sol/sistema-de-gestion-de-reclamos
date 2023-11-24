@@ -21,6 +21,7 @@ import com.example.modelo.repository.ImagenRepository;
 import com.example.modelo.repository.PersonaRepository;
 import com.example.modelo.repository.ReclamoRepository;
 import com.example.modelo.repository.UnidadRepository;
+import com.example.views.EdificioView;
 import com.example.views.Estado;
 import com.example.views.PersonaView;
 import com.example.views.ReclamoView;
@@ -75,6 +76,14 @@ public class Controlador {
 		}else
 			throw new PersonaException("No existe el usuario");
 
+	}
+
+	public List<EdificioView> getEdificios() {
+		List<EdificioView> resultado = new ArrayList<EdificioView>();
+		List<Edificio> edificios = edificioRepository.findAll();
+		for (Edificio edificio : edificios)
+			resultado.add(edificio.toView());
+		return resultado;
 	}
 
 	public List<UnidadView> getUnidadesPorEdificio(int codigo) throws EdificioException {

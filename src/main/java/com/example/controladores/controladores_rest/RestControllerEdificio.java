@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.controladores.Controlador;
 import com.example.exceptions.EdificioException;
+import com.example.views.EdificioView;
 import com.example.views.PersonaView;
 import com.example.views.ReclamoView;
 import com.example.views.UnidadView;
@@ -22,6 +23,16 @@ public class RestControllerEdificio {
 
     @Autowired
     Controlador controlador;
+
+    @GetMapping("/get")
+    public List<EdificioView> obtenerEdificios() {
+        try {
+            List<EdificioView> edificios = controlador.getEdificios();
+            return edificios;
+        } catch (EdificioException e) {
+            throw e;
+        }
+    }
 
     @GetMapping("/unidades/{codigo}")
     public List<UnidadView> obtenerUnidades(@PathVariable("codigo") Integer codigo) {
