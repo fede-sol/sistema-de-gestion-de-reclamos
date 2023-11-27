@@ -227,6 +227,14 @@ public class Controlador {
 		return resultado;
 	}
 
+	public List<PersonaView> getPersonas() {
+		List<PersonaView> resultado = new ArrayList<PersonaView>();
+		List<Persona> personas = personaRepository.findAll();
+		for (Persona persona : personas)
+			resultado.add(persona.toView());
+		return resultado;
+	}
+
 	public List<ReclamoView> reclamosPorEdificio(int codigo) throws EdificioException {
 		Edificio edificio = buscarEdificio(codigo);
 		List<Reclamo> reclamos = reclamoRepository.findByEdificio_Codigo(edificio.getCodigo());

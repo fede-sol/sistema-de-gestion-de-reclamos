@@ -28,6 +28,16 @@ public class RestControllerPersona {
     @Autowired
 	Controlador controlador;
 
+    @GetMapping("/get")
+    public List<PersonaView> getPersonas() {
+        try {
+            List<PersonaView> personas = controlador.getPersonas();
+            return personas;
+        } catch (PersonaException e) {
+            throw e;
+        }
+    }
+
     @PostMapping("/admin/login")
     public String adminLogin(@RequestParam("mail") String mail, @RequestParam("password") String password) {
         try {
