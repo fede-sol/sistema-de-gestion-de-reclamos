@@ -17,6 +17,7 @@ import jakarta.persistence.Table;
 import com.example.views.Estado;
 import com.example.views.ImagenView;
 import com.example.views.ReclamoView;
+import com.example.views.SeguimientoView;
 
 @Entity
 @Table(name = "reclamos")
@@ -42,6 +43,9 @@ public class Reclamo {
 	@OneToMany(fetch = FetchType.EAGER)
 	@JoinColumn(name = "idreclamo")
 	private List<Imagen> imagenes;
+	@JoinColumn(name = "idreclamo")
+	@OneToMany(fetch = FetchType.EAGER)
+	private List<Seguimiento> seguimientos;
 
 	public Reclamo() {
 	}
@@ -58,6 +62,10 @@ public class Reclamo {
 
 	public void agregarImagen(Imagen imagen) {
 		imagenes.add(imagen);
+	}
+
+	public void agregarSeguimiento(Seguimiento seguimiento) {
+		seguimientos.add(seguimiento);
 	}
 
 	public int getNumero() {
@@ -110,9 +118,13 @@ public class Reclamo {
 		for (Imagen imagen : this.imagenes)
 			imagenes.add(imagen.toView());
 
+		List<SeguimientoView> seguimientos = new ArrayList<>();
+		for (Seguimiento seguimiento : this.seguimientos)
+			seguimientos.add(seguimiento.toView());
+
 		if(unidad == null)
-			return new ReclamoView(numero, usuario.toView(), edificio.toView(), ubicacion,descripcion, null, estado, imagenes);
+			return new ReclamoView(numero, usuario.toView(), edificio.toView(), ubicacion,descripcion, null, estado, imagenes, seguimientos);
 		else
-			return new ReclamoView(numero, usuario.toView(), edificio.toView(), ubicacion,descripcion, unidad.toView(), estado, imagenes);
+			return new ReclamoView(numero, usuario.toView(), edificio.toView(), ubicacion,descripcion, unidad.toView(), estado, imagenes,seguimientos);
 	}
 }

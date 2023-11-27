@@ -15,11 +15,13 @@ import com.example.modelo.Edificio;
 import com.example.modelo.Imagen;
 import com.example.modelo.Persona;
 import com.example.modelo.Reclamo;
+import com.example.modelo.Seguimiento;
 import com.example.modelo.Unidad;
 import com.example.modelo.repository.EdificioRepository;
 import com.example.modelo.repository.ImagenRepository;
 import com.example.modelo.repository.PersonaRepository;
 import com.example.modelo.repository.ReclamoRepository;
+import com.example.modelo.repository.SeguimientoRepository;
 import com.example.modelo.repository.UnidadRepository;
 import com.example.views.EdificioView;
 import com.example.views.Estado;
@@ -44,6 +46,9 @@ public class Controlador {
 
 	@Autowired
 	UnidadRepository unidadRepository;
+
+	@Autowired
+	SeguimientoRepository seguimientoRepository;
 
 
 	public String login(String mail, String contrasenia) throws PersonaException {
@@ -340,10 +345,16 @@ public class Controlador {
 
 	}
 
-	public ReclamoView cambiarEstado(int numero, Estado estado) throws ReclamoException {
+	public ReclamoView cambiarEstado(int numero, Estado estado, String observacion) throws ReclamoException {
 		Reclamo reclamo = buscarReclamo(numero);
+		Seguimiento seguimiento = new Seguimiento(numero, reclamo.getEstado(), estado, observacion);
+
+		reclamo.agregarSeguimiento(seguimiento);
 		reclamo.cambiarEstado(estado);
+
+		seguimientoRepository.save(seguimiento);
 		reclamoRepository.save(reclamo);
+
 		return reclamo.toView();
 	}
 

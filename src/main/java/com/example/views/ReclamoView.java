@@ -12,12 +12,13 @@ public class ReclamoView {
 	private UnidadView unidad;
 	private Estado estado;
 	private List<ImagenView> imagenes;
+	private List<SeguimientoView> seguimientos;
 
 	public ReclamoView() {
 	}
 
 	public ReclamoView(int numero, PersonaView usuario, EdificioView edificio, String ubicacion, String descripcion,
-			UnidadView unidad, Estado estado, List<ImagenView> imagenes) {
+			UnidadView unidad, Estado estado, List<ImagenView> imagenes, List<SeguimientoView> seguimientos) {
 		this.numero = numero;
 		this.usuario = usuario;
 		this.edificio = edificio;
@@ -26,6 +27,7 @@ public class ReclamoView {
 		this.unidad = unidad;
 		this.estado = estado;
 		this.imagenes = imagenes;
+		this.seguimientos = seguimientos;
 	}
 
 	public int getNumero() {
@@ -78,6 +80,10 @@ public class ReclamoView {
 
 	public List<ImagenView> getImagenes() {
 		return this.imagenes;
+	}
+
+	public List<SeguimientoView> getSeguimientos() {
+		return this.seguimientos;
 	}
 
 	public String toString() {

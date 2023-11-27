@@ -106,7 +106,7 @@ public class RestControllerReclamo {
 
 
     @PutMapping("/cambiar-estado")
-	public ReclamoView cambiarEstado(@RequestParam("numero") Integer numero,@RequestParam("estado") Estado estado,@RequestParam("documento") String documento) {
+	public ReclamoView cambiarEstado(@RequestParam("numero") Integer numero,@RequestParam("estado") Estado estado,@RequestParam("documento") String documento,@RequestParam("observacion") String observacion) {
         try {
 
             //check si la persona que quiere cambiar el estado es la misma que creo el reclamo
@@ -114,7 +114,7 @@ public class RestControllerReclamo {
             if(!reclamo.getUsuario().getDocumento().equals(documento))
                 throw new ReclamoException("No tiene permisos para cambiar el estado de este reclamo.");
 
-            ReclamoView reclamoActualizado = controlador.cambiarEstado(numero, estado);
+            ReclamoView reclamoActualizado = controlador.cambiarEstado(numero, estado,observacion);
             return reclamoActualizado;
         } catch (ReclamoException e) {
             throw e;
