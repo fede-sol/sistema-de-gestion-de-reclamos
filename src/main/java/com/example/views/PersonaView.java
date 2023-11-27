@@ -4,12 +4,15 @@ public class PersonaView {
 
 	private String documento;
 	private String nombre;
+	private String mail;
 
 	public PersonaView() {}
 
-	public PersonaView(String documento, String nombre) {
+	public PersonaView(String documento, String nombre, String mail) {
 		this.documento = documento;
 		this.nombre = nombre;
+		this.mail = mail;
+
 	}
 
 	public String getDocumento() {
@@ -26,6 +29,10 @@ public class PersonaView {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public String getMail(){
+		return mail;
 	}
 
 	public String toString() {

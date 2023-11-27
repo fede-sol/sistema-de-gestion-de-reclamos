@@ -59,7 +59,7 @@ public class Persona {
 	}
 
 	public PersonaView toView() {
-		return new PersonaView(documento, nombre);
+		return new PersonaView(documento, nombre,mail);
 	}
 
 }
