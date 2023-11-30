@@ -53,16 +53,11 @@ public class RestControllerReclamo {
     }
 
     @GetMapping("/buscar/id/{numero}")
-	public ReclamoView buscarPorNumero(@PathVariable("numero") Integer numero,@RequestParam("documento") String documento) {
+	public ReclamoView buscarPorNumero(@PathVariable("numero") Integer numero) {
         try {
 
             ReclamoView reclamo = controlador.reclamoPorNumero(numero);
-            for (PersonaView persona : controlador.habilitadosPorEdificio(reclamo.getEdificio().getCodigo())) {
-                if(persona.getDocumento().equals(documento)){
-                    return reclamo;
-                }
-            }
-            throw new PersonaException("No tiene permisos para ver este reclamo.");
+            return reclamo;
 
 
         } catch (ReclamoException e) {
