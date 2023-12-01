@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +29,16 @@ public class RestControllerUnidad {
 
     @Autowired
 	Controlador controlador;
+
+    @GetMapping("/buscar/{identificador}")
+    public UnidadView getUnidad(@PathVariable("identificador") Integer identificador) {
+        try {
+            UnidadView unidad = controlador.getUnidad(identificador);
+            return unidad;
+        } catch (UnidadException e) {
+            throw e;
+        }
+    }
 
 
     // dueños por unidad

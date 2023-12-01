@@ -357,7 +357,13 @@ public class Controlador {
 
 		return reclamo.toView();
 	}
-
+	public UnidadView getUnidad(int identificador) throws UnidadException {
+		Optional<Unidad> unidad = unidadRepository.findById(identificador);
+		if(unidad.isPresent())
+			return unidad.get().toView();
+		else
+			throw new UnidadException("No existe la unidad");
+	}
 
 	private Edificio buscarEdificio(int codigo) throws EdificioException {
 		Optional<Edificio> edificio = edificioRepository.findById(codigo);
