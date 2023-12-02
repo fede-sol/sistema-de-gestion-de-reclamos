@@ -41,6 +41,15 @@ public class RestControllerUnidad {
         }
     }
 
+    @GetMapping("/buscar/documento/{documento}")
+    public List<UnidadView> getUnidadesPorDocumento(@PathVariable("documento") String documento) {
+        try {
+            List<UnidadView> unidades = controlador.getUnidadesPorDocumento(documento);
+            return unidades;
+        } catch (UnidadException e) {
+            throw e;
+        }
+    }
 
     // dueños por unidad
     @PostMapping("/dueños")

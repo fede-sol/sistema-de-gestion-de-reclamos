@@ -110,7 +110,7 @@ public class Controlador {
 	}
 	public List<EdificioView> edificiosHabilitadosPorPersona(String documento) throws EdificioException {
 		List<EdificioView> resultado = new ArrayList<EdificioView>();
-		List<Edificio> edificios = edificioRepository.findByUnidadesDueniosDocumentoAndUnidadesInquilinosDocumento(documento,documento);
+		List<Edificio> edificios = edificioRepository.findAllByUnidadesDueniosDocumentoAndUnidadesInquilinosDocumento(documento,documento);
 		for (Edificio edificio : edificios)
 			resultado.add(edificio.toView());
 		return resultado;
@@ -200,6 +200,20 @@ public class Controlador {
 		unidad.habitar();
 		unidadRepository.save(unidad);
 		return unidad.toView();
+	}
+
+	public List<UnidadView> getUnidadesPorDocumento(String documento) throws PersonaException {
+		List<UnidadView> resultado = new ArrayList<UnidadView>();
+		List<Unidad> unidadesDuenio = unidadRepository.findAllByDueniosDocumento(documento);
+		List<Unidad> unidadesInquilino = unidadRepository.findAllByInquilinosDocumento(documento);
+
+		for (Unidad unidad : unidadesDuenio)
+			resultado.add(unidad.toView());
+
+		for (Unidad unidad : unidadesInquilino)
+			resultado.add(unidad.toView());
+
+		return resultado;
 	}
 
 	public PersonaView agregarPersona(String documento, String nombre, String mail, String contrasenia) {

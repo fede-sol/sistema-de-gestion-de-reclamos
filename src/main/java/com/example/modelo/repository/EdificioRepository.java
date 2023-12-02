@@ -9,5 +9,5 @@ import com.example.modelo.Edificio;
 public interface EdificioRepository extends JpaRepository<Edificio, Integer> {
 
     public Optional<Edificio> findByNombre(String nombre);
-    public List<Edificio> findByUnidadesDueniosDocumentoAndUnidadesInquilinosDocumento(String documento,String documento2);
+    public List<Edificio> findAllByUnidadesDueniosDocumentoAndUnidadesInquilinosDocumento(String documento,String documento2);
 }
