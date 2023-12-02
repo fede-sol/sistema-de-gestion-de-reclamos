@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,7 +43,7 @@ public class RestControllerUnidad {
 
 
     // dueños por unidad
-    @GetMapping("/dueños")
+    @PostMapping("/dueños")
 	public List<PersonaView> obtenerDueños(@RequestParam int codigo, @RequestParam String piso, @RequestParam String numero){
 
         try {
@@ -54,7 +55,7 @@ public class RestControllerUnidad {
 	}
 
     // inquilinos por unidad
-    @GetMapping("/inquilinos")
+    @PostMapping("/inquilinos")
     public List<PersonaView> obtenerInquilinos(@RequestParam int codigo, @RequestParam String piso, @RequestParam String numero){
 
         try {
