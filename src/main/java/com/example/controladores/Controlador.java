@@ -277,11 +277,11 @@ public class Controlador {
 			throw new ReclamoException("No existe el reclamo");
 	}
 
-	public ReclamoView agregarReclamo(int codigo, int identificador, String documento, String ubicacion,
+	public ReclamoView agregarReclamo(int codigo, String piso,String numero, String documento, String ubicacion,
 			String descripcion) throws EdificioException, UnidadException, PersonaException {
 		Edificio edificio = buscarEdificio(codigo);
 
-		if(identificador == 0){
+		if(ubicacion.equals("espacio")){
 			for (PersonaView persona : habilitadosPorEdificio(codigo)) {
 				if(persona.getDocumento().equals(documento)){
 					Reclamo reclamo = new Reclamo(buscarPersona(documento), edificio, ubicacion, descripcion,null);
@@ -294,7 +294,7 @@ public class Controlador {
 		}
 
 
-		Unidad unidad = buscarUnidad(identificador);
+		Unidad unidad = buscarUnidad(codigo,piso,numero);
 		boolean estaEnEdificio = false;
 		for (Unidad elemento : edificio.getUnidades()) {
 			if(elemento.getId() == unidad.getId()){
@@ -381,7 +381,6 @@ public class Controlador {
 			throw new EdificioException("No existe el edificio");
 	}
 
-	// lo hicimos publico para poder usarlo para hacer pruebas en el main y demostrar el funcionamiento de otros metodos
 	private Unidad buscarUnidad(int codigo, String piso, String numero) throws UnidadException {
 		Optional<Unidad> unidad = unidadRepository.findByEdificioCodigoAndPisoAndNumero(codigo, piso, numero);
 
