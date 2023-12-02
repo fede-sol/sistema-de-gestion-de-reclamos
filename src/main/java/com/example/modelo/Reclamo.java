@@ -58,6 +58,7 @@ public class Reclamo {
 		this.unidad = unidad;
 		this.estado = Estado.nuevo;
 		imagenes = new ArrayList<Imagen>();
+		this.seguimientos = new ArrayList<Seguimiento>();
 	}
 
 	public void agregarImagen(Imagen imagen) {
