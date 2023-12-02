@@ -62,9 +62,9 @@ public class RestControllerReclamo {
 
 
     @PostMapping("/agregar")
-	public ReclamoView agregarReclamo(@RequestBody Reclamo reclamo) {
+	public ReclamoView agregarReclamo(@RequestParam("codigo") Integer codigo,@RequestParam("piso") String piso,@RequestParam("numero") String numero,@RequestParam("documento") String documento,@RequestParam("ubicacion") String ubicacion,@RequestParam("descripcion") String descripcion) {
         try {
-            ReclamoView nuevoReclamo = controlador.agregarReclamo(reclamo.getEdificio().getCodigo(), reclamo.getUnidad().getPiso(), reclamo.getUnidad().getNumero(), reclamo.getUsuario().getDocumento(), reclamo.getUbicacion(), reclamo.getDescripcion());
+            ReclamoView nuevoReclamo = controlador.agregarReclamo(codigo, piso, numero, documento, ubicacion, descripcion);
             return nuevoReclamo;
         } catch (EdificioException e) {
             throw e;
