@@ -1,13 +1,9 @@
 package com.example.controladores.controladores_rest;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,7 +24,6 @@ import com.example.views.Estado;
 import com.example.views.PersonaView;
 import com.example.views.ReclamoView;
 import com.servicios.ManejadorArchivos;
-import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/reclamos")

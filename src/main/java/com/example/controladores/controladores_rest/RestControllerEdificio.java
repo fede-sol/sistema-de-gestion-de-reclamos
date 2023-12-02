@@ -33,6 +33,15 @@ public class RestControllerEdificio {
             throw e;
         }
     }
+    @GetMapping("/persona/{documento}")
+    public List<EdificioView> obtenerEdificiosPorPersona(@PathVariable("documento") String documento) {
+        try {
+            List<EdificioView> edificios = controlador.edificiosHabilitadosPorPersona(documento);
+            return edificios;
+        } catch (EdificioException e) {
+            throw e;
+        }
+    }
 
     @GetMapping("/unidades/{codigo}")
     public List<UnidadView> obtenerUnidades(@PathVariable("codigo") Integer codigo) {

@@ -108,6 +108,13 @@ public class Controlador {
 			resultado.add(persona.toView());
 		return resultado;
 	}
+	public List<EdificioView> edificiosHabilitadosPorPersona(String documento) throws EdificioException {
+		List<EdificioView> resultado = new ArrayList<EdificioView>();
+		List<Edificio> edificios = edificioRepository.findByUnidadesDueniosDocumentoAndUnidadesInquilinosDocumento(documento,documento);
+		for (Edificio edificio : edificios)
+			resultado.add(edificio.toView());
+		return resultado;
+	}
 
 	public List<PersonaView> dueniosPorEdificio(int codigo) throws EdificioException {
 		List<PersonaView> resultado = new ArrayList<PersonaView>();
