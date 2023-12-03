@@ -110,8 +110,13 @@ public class Controlador {
 	}
 	public List<EdificioView> edificiosHabilitadosPorPersona(String documento) throws EdificioException {
 		List<EdificioView> resultado = new ArrayList<EdificioView>();
-		List<Edificio> edificios = edificioRepository.findAllByUnidadesDueniosDocumentoAndUnidadesInquilinosDocumento(documento,documento);
-		for (Edificio edificio : edificios)
+		List<Edificio> edificios1 = edificioRepository.findAllByUnidadesDueniosDocumento(documento);
+		List<Edificio> edificios2 = edificioRepository.findAllByUnidadesInquilinosDocumento(documento);
+
+		for (Edificio edificio : edificios1)
+			resultado.add(edificio.toView());
+
+		for (Edificio edificio : edificios2)
 			resultado.add(edificio.toView());
 		return resultado;
 	}
